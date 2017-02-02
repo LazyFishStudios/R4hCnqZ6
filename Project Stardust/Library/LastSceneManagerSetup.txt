@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Project Stardust Main.unity
+- path: Assets/Scenes/Project Stardust Main.unity
   isLoaded: 1
   isActive: 1
