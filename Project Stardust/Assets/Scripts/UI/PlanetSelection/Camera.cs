@@ -80,17 +80,7 @@ namespace PlanetSelection
 
                 if(Mathf.Abs(transform.position.z - _currentLockTrigger.lockPointForCamera.z) < 1f)
                 {
-                    switch (_currentLockTrigger.planetSide)
-                    {
-                        case LockTrigger.PlanetSelectionSide.Right:
-                            selectedLevel.ShowLeft();
-                            break;
-                        case LockTrigger.PlanetSelectionSide.Left:
-                            selectedLevel.ShowRight();
-                            break;
-                        default:
-                            break;
-                    }
+                    selectedLevel.ShowPlanetUI(_currentLockTrigger);
                 }
             }
             /*if (_translating)

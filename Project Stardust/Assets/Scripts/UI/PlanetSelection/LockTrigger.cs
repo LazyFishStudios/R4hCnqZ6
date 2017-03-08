@@ -6,6 +6,7 @@ namespace PlanetSelection
 {
     public class LockTrigger : MonoBehaviour
     {
+        public Planet planet;
         public PlanetSelectionSide planetSide;
         public Vector3 lockPointForCamera;
 
