@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class SelectPlanet : MonoBehaviour
 {
   enum SwipeState
@@ -24,11 +24,16 @@ public class SelectPlanet : MonoBehaviour
   public float Speed;
   [SerializeField]
   AnimationCurve _cameraSpeed;
+  
+  [SerializeField]
+  VerticalLayoutGroup _vlg;
 
   void Start()
   {
     _mainCamera = Camera.main;
+    Debug.Log(name);
     _inputHandler = FindObjectOfType<InputHandler>();
+  
     _mainCamera.transform.position = _lookAtplanetPositions[_selectedPlanetIndex].position;
     _state = SwipeState.WAITING_FOR_SWIPE;
     AddEventListeners();
@@ -63,7 +68,7 @@ public class SelectPlanet : MonoBehaviour
     if (_selectedPlanetIndex == _lookAtplanetPositions.Length - 1) return;
     _cameraStartPosition = _lookAtplanetPositions[_selectedPlanetIndex].position;
     _selectedPlanetIndex++;
-    
+
     _cameraEndPosition = _lookAtplanetPositions[_selectedPlanetIndex].position;
     _swipeProgress = 0;
     _state = SwipeState.SWIPE_IN_PROGRESS;
@@ -83,10 +88,20 @@ public class SelectPlanet : MonoBehaviour
 
   private void UpdateCameraPosition()
   {
-    _swipeProgress += Time.deltaTime*Speed;
+    _swipeProgress += Time.deltaTime * Speed;
     Vector3 newCamPos = Vector3.Lerp(_cameraStartPosition, _cameraEndPosition, _cameraSpeed.Evaluate(_swipeProgress));
     _mainCamera.transform.position = newCamPos;
-    Debug.Log("progress: " + _swipeProgress+ " start: "+ _cameraStartPosition+" end: "+_cameraEndPosition+ " campos: "+newCamPos);
-    if (_swipeProgress >= 1f) _state = SwipeState.WAITING_FOR_SWIPE;
+  //  Debug.Log("progress: " + _swipeProgress + " start: " + _cameraStartPosition + " end: " + _cameraEndPosition + " campos: " + newCamPos);
+    if (_swipeProgress >= 1f)
+    {
+      _state = SwipeState.WAITING_FOR_SWIPE;
+      _vlg.childAlignment = (_selectedPlanetIndex % 2 != 0) ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight;
+    }
+  }
+
+  // button function:
+  public void OnBattleButtonPressed()
+  {
+    Debug.Log("selected planet index: " + _selectedPlanetIndex);
   }
 }
