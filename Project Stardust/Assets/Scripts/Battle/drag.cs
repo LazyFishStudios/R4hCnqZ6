@@ -6,16 +6,18 @@ using UnityEngine.EventSystems;
 
 public class drag : MonoBehaviour, IDragHandler, IEndDragHandler
 {
+  Canvas c;
   RectTransform rt;
   Camera mainCamera;
   void Start()
   {
     rt = GetComponent<RectTransform>();
     mainCamera = Camera.main;
+    c = FindObjectOfType<Canvas>();
   }
   public void OnDrag(PointerEventData eventData)
   {
-    rt.anchoredPosition += eventData.delta;
+    rt.anchoredPosition += eventData.delta*1/c.scaleFactor;
   }
 
   public void OnEndDrag(PointerEventData eventData)
