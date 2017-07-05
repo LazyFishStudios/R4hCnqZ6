@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Quit : MonoBehaviour {
+public class Quit : MonoBehaviour
+{
   public void OnButtonPressed()
   {
     Application.Quit();
-} }
+  }
+}
