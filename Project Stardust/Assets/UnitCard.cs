@@ -6,8 +6,8 @@ namespace StarDust
 {
   public class UnitCard : Card
   {
-    protected int fuel;
-    protected int attack;
-    protected int deffence;
+    public int Fuel { get; private set; }
+    public int Attack { get; private set; }
+    public int Defence { get; private set; }
   }
 }

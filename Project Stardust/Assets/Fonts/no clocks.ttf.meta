@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 85b17a552f4f9bc47a3acc7a6f739f43
+timeCreated: 1499660040
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: No Clocks
+  fontNames:
+  - No Clocks
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -6,6 +6,6 @@ namespace StarDust
 {
   public abstract class Card
   {
-    protected int manaCost;
+    public int Cost { get; private set; }
   }
 }
