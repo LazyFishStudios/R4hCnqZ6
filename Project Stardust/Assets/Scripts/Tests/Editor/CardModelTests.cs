@@ -22,9 +22,9 @@ public class CardModelTests : ZenjectUnitTestFixture
   public void AddCard()
   {
     CardsModel _cardsModel = Container.Resolve<CardsModel>();
-    _cardsModel.AddCard(new UnitCard());
+    _cardsModel.AddCard(new BattleCruiserCard());
     Assert.That(_cardsModel.NumberOfCardOnHand, Is.EqualTo(1));
-    _cardsModel.AddCard(new UnitCard());
+    _cardsModel.AddCard(new BattleCruiserCard());
     Assert.That(_cardsModel.NumberOfCardOnHand, Is.EqualTo(2));
   }
 }
