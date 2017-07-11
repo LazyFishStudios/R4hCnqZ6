@@ -8,15 +8,19 @@ namespace StarDust
 {
   public class BattleCruiserCard : UnitCard
   {
+    [Inject] // This is PROBABLY after ctors()
+    PlayerModel _playerModel;
+
     // parameter passed bo base must match card description ScriptableObject in Resourced 
     public BattleCruiserCard() : base("BattleCruiser")
     {
       Debug.Log("BattleCruiser ctor()");
     }
 
-    public override void OnCardPlayed()
+    public override void CardOnPlaySpecialAction()
     {
       // For example each ship gets +1 to fuel;      
+      _playerModel.Lives++;
     }
   }
 }

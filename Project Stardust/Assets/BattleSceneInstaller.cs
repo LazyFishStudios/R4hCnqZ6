@@ -8,6 +8,7 @@ namespace StarDust
     public override void InstallBindings()
     {
       Container.Bind<CardsModel>().AsSingle();
+      Container.Bind<PlayerModel>().AsSingle();
     }
   }
 }

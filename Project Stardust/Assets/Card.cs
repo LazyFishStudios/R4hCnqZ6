@@ -10,7 +10,7 @@ namespace StarDust
     public int Cost { get; protected set; }
     protected string cardName;
     
-    public abstract void OnCardPlayed();
+    public abstract void CardOnPlaySpecialAction();
     
     protected T LoadCardDescitpion<T>() where T : CardDescription
     {

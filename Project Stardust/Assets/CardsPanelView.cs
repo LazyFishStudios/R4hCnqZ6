@@ -17,6 +17,7 @@ namespace StarDust
     {
       Debug.Log(_cardsModel.NumberOfCardOnHand);
       UnitCard c = cardFactory.CreateCard<UnitCard>();
+      c.CardOnPlaySpecialAction();
       Debug.Log(c.Description);
     }
   }
