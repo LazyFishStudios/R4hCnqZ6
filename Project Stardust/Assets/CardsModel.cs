@@ -11,24 +11,19 @@ namespace StarDust
     private int _maxCardsOnHand = 5;
     private List<Card> _cardsOnHand;
     public event Action<Card> OnNewCardAdded;
-
-    
+       
     CardFactory cardFactory;
 
     public CardsModel(CardFactory cardFactory)
     {
       this.cardFactory = cardFactory;
-      _cardsOnHand = new List<Card>();
-
-      
-
-      
-
+      _cardsOnHand = new List<Card>(); 
     }
 
     public void AddNewCard()
     {
-      UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
+      // UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
+      Card c = cardFactory.CreateRandomCard();
       AddCardInternal(c);
     }
 

@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using System;
+using Zenject;
 /*
  Classes related with creating card
 
@@ -51,6 +52,7 @@ namespace StarDust
     public Card Create()
     {
       Card nextCard = null;
+
       switch (_factroryController.NextCardName)
       {
         case (CardListNames.BattleCruiser):
@@ -76,6 +78,7 @@ namespace StarDust
     [Inject]
     CardFactoryController factoryController;
 
+    Random rand = new Random();
     // T gives you option to cast the card to correct type here. (It also gives option to make wrong casting)
     public T CreateCardByName<T>(CardListNames nextCardName) where T : Card
     {
@@ -93,7 +96,8 @@ namespace StarDust
 
     private CardListNames GetRandomCardName()
     {
-      return CardListNames.HealPlanet;
+      var v = Enum.GetValues(typeof(CardListNames));
+      return (CardListNames)v.GetValue(rand.Next(v.Length));
     }
   }
 }

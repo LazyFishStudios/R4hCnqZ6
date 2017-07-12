@@ -9,10 +9,11 @@ namespace StarDust
   {
     [Inject]
     CardsModel cm;
+    
 
     public void OnButtonPressed()
     {
-      cm.AddNewCard();
+      cm.AddNewCard(); 
     }
   }
 }
