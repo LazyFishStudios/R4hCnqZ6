@@ -17,7 +17,7 @@ namespace StarDust
       Debug.Log("BattleCruiser ctor()");
     }
 
-    public override void CardOnPlaySpecialAction()
+    public override void OnCardPlayed()
     {
       // For example each ship gets +1 to fuel;      
       _playerModel.Lives++;

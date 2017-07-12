@@ -6,4 +6,6 @@ public abstract class CardDescription : ScriptableObject
 {
   public string CardName;
   public int Cost;
+  public string Description;
+  public Sprite Thumbnail;
 }

@@ -11,8 +11,6 @@ namespace StarDust
     public int Defence;
     public int Attack;
     public int Fuel;
-    public string Description;
     public GameObject ModelPrefab;
-    public Sprite Thumbnail;
   }
 }

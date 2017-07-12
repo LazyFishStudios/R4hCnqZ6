@@ -8,22 +8,30 @@
 */
 namespace StarDust
 {
-  
+
+  // List of all available cards in game:
+  public enum CardListNames
+  {
+    BattleCruiser,
+    HealPlanet
+  }
+
+
   public class CardFactoryController
   {
-    public int NextCardIndex { get; private set; }
+    public CardListNames NextCardName { get; private set; }
 
-    public void SetRandomCardIndex()
+    public void SetRandomCard()
     {
-      NextCardIndex = 1;
+      NextCardName = CardListNames.BattleCruiser;
     }
 
-    public void SetCardIndex(int index)
+    public void SetNextCardName(CardListNames nextCardName)
     {
-      NextCardIndex = index;
+      NextCardName = nextCardName;
     }
   }
-  
+
   public class BaseCardFactory : Factory<Card>
   {
 
@@ -33,8 +41,8 @@ namespace StarDust
   {
     DiContainer _container;
     [Inject]
-    CardFactoryController _fc;
-    
+    CardFactoryController _factroryController;
+
     public CardFactoryInternal(DiContainer container)
     {
       _container = container;
@@ -42,30 +50,50 @@ namespace StarDust
 
     public Card Create()
     {
-      if (_fc.NextCardIndex == 0)
-        return _container.Instantiate<BattleCruiserCard>();
-      else
-        return _container.Instantiate<BattleCruiserCard>();
+      Card nextCard = null;
+      switch (_factroryController.NextCardName)
+      {
+        case (CardListNames.BattleCruiser):
+          {
+            nextCard = _container.Instantiate<BattleCruiserCard>();
+            break;
+          }
+        case (CardListNames.HealPlanet):
+          {
+            nextCard = _container.Instantiate<HealPlanetCard>();
+            break;
+          }
+      }
+      return nextCard;
     }
   }
 
   public class CardFactory
   {
     [Inject]
-    BaseCardFactory cef;
+    BaseCardFactory cardFactory;
 
     [Inject]
-    CardFactoryController fc;
+    CardFactoryController factoryController;
 
-    public T CreateCard<T>() where T:Card
+    // T gives you option to cast the card to correct type here.
+    public T CreateCardByName<T>(CardListNames nextCardName) where T : Card
     {
-      fc.SetCardIndex(1);
-      return cef.Create() as T;
+      factoryController.SetNextCardName(nextCardName);
+      return cardFactory.Create() as T;
     }
-    public Card CreateCat()
+
+    // T won't work here, because you won't know type of returned card. Will it be instant or unit.
+    public Card CreateRancomCard()
     {
-      fc.SetRandomCardIndex();
-      return cef.Create();
+      CardListNames nextCardName = GetRandomCardName();
+      factoryController.SetNextCardName(nextCardName);
+      return cardFactory.Create();
+    }
+
+    private CardListNames GetRandomCardName()
+    {
+      return CardListNames.HealPlanet;
     }
   }
 }

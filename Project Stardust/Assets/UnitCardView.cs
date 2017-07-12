@@ -5,7 +5,7 @@ using TMPro;
 
 namespace StarDust
 {
-  public class UnitCardView : MonoBehaviour
+  public class UnitCardView : CardView
   {
     [SerializeField]
     TextMeshProUGUI cost;

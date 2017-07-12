@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace StarDust
+﻿namespace StarDust
 {
   public abstract class UnitCard : Card
   {
     public int Fuel { get; protected set; }
     public int Attack { get; protected set; }
     public int Defence { get; protected set; }
-    public string Description { get; protected set; }
 
     public UnitCard(string cardName)
     {
       this.cardName = cardName;
+      Type = CardType.UNIT;
       SetupDescription(this.cardName);
     }
 
-    private void SetupDescription(string cardNamep)
+    protected override void SetupDescription(string cardNamep)
     {
-      UnitCardDescription ucd = LoadCardDescitpion<UnitCardDescription>();
-      Cost = ucd.Cost;
-      Attack = ucd.Attack;
-      Defence = ucd.Defence;
-      Fuel = ucd.Fuel;
-      Description = ucd.Description;
+      UnitCardDescription desc = LoadCardDescitpion<UnitCardDescription>();
+      Cost = desc.Cost;
+      Attack = desc.Attack;
+      Defence = desc.Defence;
+      Fuel = desc.Fuel;
+      Description = desc.Description;
     }
   }
 }

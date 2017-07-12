@@ -15,10 +15,13 @@ namespace StarDust
 
     void Start()
     {
-      Debug.Log(_cardsModel.NumberOfCardOnHand);
-      UnitCard c = cardFactory.CreateCard<UnitCard>();
-      c.CardOnPlaySpecialAction();
+      UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
+      c.OnCardPlayed();
       Debug.Log(c.Description);
+
+      Card i1 = cardFactory.CreateRancomCard();
+      Debug.Log(i1.Description);
+
     }
   }
 }
