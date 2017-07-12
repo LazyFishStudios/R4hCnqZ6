@@ -76,7 +76,7 @@ namespace StarDust
     [Inject]
     CardFactoryController factoryController;
 
-    // T gives you option to cast the card to correct type here.
+    // T gives you option to cast the card to correct type here. (It also gives option to make wrong casting)
     public T CreateCardByName<T>(CardListNames nextCardName) where T : Card
     {
       factoryController.SetNextCardName(nextCardName);
@@ -84,7 +84,7 @@ namespace StarDust
     }
 
     // T won't work here, because you won't know type of returned card. Will it be instant or unit.
-    public Card CreateRancomCard()
+    public Card CreateRandomCard()
     {
       CardListNames nextCardName = GetRandomCardName();
       factoryController.SetNextCardName(nextCardName);

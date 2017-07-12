@@ -1,0 +1,7 @@
+1. CardModel creates new Card object (from factory of course)
+2. CardsPanelView is informed about that by event.
+3. CardsPanelView gets info from model about what was created in event
+4. According to that creates UI for new card.
+5. UI is created by Zenject factory
+6. CardView is filled with card data.
+7. CardsPanelView is responsible for putting that card prefab in correct place.

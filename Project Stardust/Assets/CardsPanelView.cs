@@ -9,19 +9,29 @@ namespace StarDust
   {
     [Inject]
     CardsModel _cardsModel;
-
-    [Inject]
-    CardFactory cardFactory;
-
+     
     void Start()
     {
-      UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
-      c.OnCardPlayed();
-      Debug.Log(c.Description);
+      _cardsModel.OnNewCardAdded += _cardsModel_OnNewCardAdded;
+    }
 
-      Card i1 = cardFactory.CreateRancomCard();
-      Debug.Log(i1.Description);
+    private void _cardsModel_OnNewCardAdded(Card newCard)
+    {
+      switch(newCard.Type)
+      {
+        case (CardType.UNIT):
+          {
 
+            break;
+
+          }
+        case (CardType.INSTANT):
+          {
+
+            break;
+          }
+      }
+      Debug.Log(newCard.Type);
     }
   }
 }

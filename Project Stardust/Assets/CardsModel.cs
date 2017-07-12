@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Zenject;
 
 namespace StarDust
 {
@@ -12,12 +12,27 @@ namespace StarDust
     private List<Card> _cardsOnHand;
     public event Action<Card> OnNewCardAdded;
 
-    public CardsModel()
+    
+    CardFactory cardFactory;
+
+    public CardsModel(CardFactory cardFactory)
     {
+      this.cardFactory = cardFactory;
       _cardsOnHand = new List<Card>();
+
+      
+
+      
+
     }
 
-    public void AddCard(Card newCard)
+    public void AddNewCard()
+    {
+      UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
+      AddCardInternal(c);
+    }
+
+    private void AddCardInternal(Card newCard)
     {
       if (NumberOfCardOnHand < _maxCardsOnHand)
       {
