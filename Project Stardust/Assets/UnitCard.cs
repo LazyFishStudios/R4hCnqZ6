@@ -4,10 +4,10 @@ namespace StarDust
 {
   public abstract class UnitCard : Card
   {
-    public int Fuel { get; protected set; }
-    public int Attack { get; protected set; }
-    public int Defence { get; protected set; }
-    protected GameObject Prefab;
+    public int Fuel { get; private set; }
+    public int Attack { get; private set; }
+    public int Defence { get; private set; }
+    public GameObject Prefab { get; private set; }
 
     public UnitCard(string cardName)
     {

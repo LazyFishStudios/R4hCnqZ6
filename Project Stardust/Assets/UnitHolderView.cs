@@ -9,14 +9,15 @@ namespace StarDust
   {
     [Inject]
     CardsModel _cardsModel;
+    
     private void Start()
     {
-      _cardsModel.OnCardReleased += _cardsModel_OnCardReleased;
+      _cardsModel.OnNewUnitCreated += _cardsModel_OnNewUnitCreated;
     }
 
-    private void _cardsModel_OnCardReleased(Card obj)
+    private void _cardsModel_OnNewUnitCreated(UnitCard obj)
     {
-     
+      Instantiate(obj.Prefab);
     }
   }
 }

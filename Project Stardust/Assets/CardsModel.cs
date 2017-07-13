@@ -16,6 +16,7 @@ namespace StarDust
     // Card model events:
     public event Action<Card> OnNewCardCreated;
     public event Action<Card> OnCardReleased;
+    public event Action<UnitCard> OnNewUnitCreated;
        
     CardFactory cardFactory;
     /* ok, this is to be discussed:
@@ -49,7 +50,14 @@ namespace StarDust
     public void ReleaseCard(Card c)
     {
       Debug.Log("Card released: "+c.CardName);
+      
+      if(c.Type == CardType.UNIT)
+      {
+       if(OnNewUnitCreated != null) OnNewUnitCreated(c as UnitCard);
+      }
     }
+
+
 
     private void AddCardInternal(Card newCard)
     {
