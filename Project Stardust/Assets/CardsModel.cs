@@ -24,6 +24,7 @@ namespace StarDust
     public event Action<UnitCard> OnNewUnitCreated;
 
     CardFactory cardFactory;
+    
     /* ok, this is to be discussed:
      - should model maintain position of last released card?
      OR
@@ -100,7 +101,6 @@ namespace StarDust
             RemoveCardFromHand(c);
             break;
           }
-
       }
     }
 
@@ -113,7 +113,7 @@ namespace StarDust
       }
       else
       {
-        Debug.Log("Can not add more cards, because player has " + _cardsOnHand.Count + " cards");
+        Debug.Log("Can not add more cards, because player has " + _cardsOnHand.Count + " cards on hand");
       }
     }
   }

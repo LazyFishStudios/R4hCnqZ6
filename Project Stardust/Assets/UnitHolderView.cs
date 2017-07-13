@@ -17,6 +17,7 @@ namespace StarDust
 
     private void _cardsModel_OnNewUnitCreated(UnitCard obj)
     {
+      // Replace this with new model objects factory:
       Instantiate(obj.Prefab);
     }
   }
