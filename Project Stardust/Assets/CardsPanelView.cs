@@ -30,7 +30,7 @@ namespace StarDust
     {
       Slot s = GetFirstFreeSlot();
       s.card = newCard;
-      _cardsViewsFactory.CreateView(s);
+      CardView newCardView = _cardsViewsFactory.CreateView(s);
 
       Debug.Log(newCard.Type);
     }

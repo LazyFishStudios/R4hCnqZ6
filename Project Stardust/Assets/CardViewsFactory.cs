@@ -17,14 +17,14 @@ namespace StarDust
     public CardView CreateView(Slot slot)
     {
       factoryViewsController.slot = slot.slot;
-      factoryViewsController.ViewToCreate = slot.card.Type;
+      factoryViewsController.CardToCreate = slot.card;
       return cardViewFactory.Create();
     }
   }
 
   public class CardViewsFactoryController
   {
-    public CardType ViewToCreate;
+    public Card CardToCreate;
     public Transform slot;
   }
 
@@ -46,23 +46,25 @@ namespace StarDust
 
     public CardView Create()
     {
-      CardView newCardView = null;
-      switch (viewController.ViewToCreate)
+    //  CardView newCardView = null;
+      switch (viewController.CardToCreate.Type)
       {
         case (CardType.UNIT):
           {
-            newCardView = _container.InstantiatePrefabResourceForComponent<UnitCardView>("CardViews/UnitCardView", viewController.slot);
-            break;
+            UnitCardView newCardView = _container.InstantiatePrefabResourceForComponent<UnitCardView>("CardViews/UnitCardView", viewController.slot);
+            newCardView.UpdateDisplayedValues(viewController.CardToCreate as UnitCard);
+            return newCardView;
           }
 
         case (CardType.INSTANT):
           {
-            newCardView = _container.InstantiatePrefabResourceForComponent<InstantCardView>("CardViews/InstantCardView", viewController.slot);
+            InstantCardView newCardView = _container.InstantiatePrefabResourceForComponent<InstantCardView>("CardViews/InstantCardView", viewController.slot);
+            newCardView.UpdateDisplayedValues(viewController.CardToCreate as InstantCard);
             break;
           }
       }
 
-      return newCardView;
+      return null;
     }
   }
 }

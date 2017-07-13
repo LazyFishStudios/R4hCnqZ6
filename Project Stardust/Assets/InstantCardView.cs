@@ -10,9 +10,9 @@ namespace StarDust
     [SerializeField]
     TextMeshProUGUI cost;
 
-    public void UpdateDisplayedValues(InstantCard newUnitCard)
+    public void UpdateDisplayedValues(InstantCard newInstantCard)
     {
-
+      cost.text = newInstantCard.Cost.ToString();
     }
   }
 }
