@@ -16,7 +16,7 @@ namespace StarDust
     private List<Card> _cardsOnHand;
     private List<Card> _cardsOnTable;
     private Queue<Card> _playersDeck;
- 
+
     // Card model events:
     public event Action<Card> OnNewCardOnHand;
     public event Action<Card> OnCardReleased;
@@ -37,7 +37,7 @@ namespace StarDust
      OR
      - should some other view on scene take care of placing models?
      */
-   // public PointerEventData lastCardEventData;
+    // public PointerEventData lastCardEventData;
 
     public CardsModel(CardFactory cardFactory)
     {
@@ -46,7 +46,7 @@ namespace StarDust
       _cardsOnTable = new List<Card>();
       _cardsOnHand = new List<Card>();
     }
-    
+
     public void Initialize()
     {
       CreateRandomCardDeck();
@@ -56,10 +56,10 @@ namespace StarDust
         AddTopCardFromDeckToHand();
       }
     }
-    
+
     private void CreateRandomCardDeck()
     {
-      for(int i=0;i<_deckSize;i++)
+      for (int i = 0; i < _deckSize; i++)
       {
         Card newCard = cardFactory.CreateRandomCard();
         _playersDeck.Enqueue(newCard);
@@ -76,8 +76,6 @@ namespace StarDust
     public void AddTopCardFromDeckToHand()
     {
       // UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
-      //  Card c = cardFactory.CreateRandomCard();
-      
       AddCardToHandInternal(_playersDeck.Dequeue());
     }
 
@@ -89,13 +87,23 @@ namespace StarDust
     {
       Debug.Log("Card released: " + c.CardName);
 
-      if (c.Type == CardType.UNIT)
+      switch (c.Type)
       {
-        if (OnNewUnitCreated != null) OnNewUnitCreated(c as UnitCard);
-        if (OnCardRemovedFromHand != null) OnCardRemovedFromHand(c);
+        case (CardType.UNIT):
+          {
+            if (OnNewUnitCreated != null) OnNewUnitCreated(c as UnitCard);
+            RemoveCardFromHand(c);
+            break;
+          }
+        case (CardType.INSTANT):
+          {
+            RemoveCardFromHand(c);
+            break;
+          }
+
       }
     }
-    
+
     private void AddCardToHandInternal(Card newCard)
     {
       if (NumberOfCardOnHand < _maxCardsOnHand)
