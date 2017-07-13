@@ -9,9 +9,9 @@ namespace StarDust
   {
     public InstantCard(string cardName)
     {
-      this.cardName = cardName;
+      this.CardName = cardName;
       Type = CardType.INSTANT;
-      SetupDescription(this.cardName);
+      SetupDescription(this.CardName);
     }
 
     public override void OnCardPlayed()

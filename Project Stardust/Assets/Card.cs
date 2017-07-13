@@ -14,7 +14,7 @@ namespace StarDust
   public abstract class Card
   {
     public int Cost { get; protected set; }
-    protected string cardName; // This name must match card description in Resources.
+    public string CardName { get; protected set; } // This name must match card description in Resources.
     public string Description { get; protected set; }
 
     public CardType Type { get; protected set;} // This is used by UI to find out which card UI to add
@@ -22,8 +22,8 @@ namespace StarDust
     
     protected T LoadCardDescitpion<T>() where T : CardDescription
     {
-      Debug.Log("CardDescriptions/" + cardName);
-      T desc = Resources.Load<T>("CardDescriptions/" + cardName);
+      Debug.Log("CardDescriptions/" + CardName);
+      T desc = Resources.Load<T>("CardDescriptions/" + CardName);
       return desc;
     }
 

@@ -60,9 +60,10 @@ namespace StarDust
           {
             InstantCardView newCardView = _container.InstantiatePrefabResourceForComponent<InstantCardView>("CardViews/InstantCardView", viewController.slot);
             newCardView.UpdateDisplayedValues(viewController.CardToCreate as InstantCard);
-            break;
+            return newCardView;
           }
       }
+      Debug.LogError("Unknown cart type, can not create view: "+viewController.CardToCreate.Type);
 
       return null;
     }

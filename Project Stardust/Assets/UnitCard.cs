@@ -1,16 +1,19 @@
-﻿namespace StarDust
+﻿using UnityEngine;
+
+namespace StarDust
 {
   public abstract class UnitCard : Card
   {
     public int Fuel { get; protected set; }
     public int Attack { get; protected set; }
     public int Defence { get; protected set; }
+    protected GameObject Prefab;
 
     public UnitCard(string cardName)
     {
-      this.cardName = cardName;
+      this.CardName = cardName;
       Type = CardType.UNIT;
-      SetupDescription(this.cardName);
+      SetupDescription(this.CardName);
     }
 
     protected override void SetupDescription(string cardNamep)
@@ -21,6 +24,7 @@
       Defence = desc.Defence;
       Fuel = desc.Fuel;
       Description = desc.Description;
+      Prefab = desc.ModelPrefab;
     }
   }
 }

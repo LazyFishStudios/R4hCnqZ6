@@ -8,6 +8,7 @@ namespace StarDust
     {
       Container.Bind<CardsModel>().AsSingle();
       Container.Bind<PlayerModel>().AsSingle();
+      Container.Bind<CardsPanelView>().FromComponentInHierarchy();
     }
   }
 }

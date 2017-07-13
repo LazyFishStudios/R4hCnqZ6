@@ -13,6 +13,7 @@ namespace StarDust
     public void UpdateDisplayedValues(InstantCard newInstantCard)
     {
       cost.text = newInstantCard.Cost.ToString();
+      
     }
   }
 }
