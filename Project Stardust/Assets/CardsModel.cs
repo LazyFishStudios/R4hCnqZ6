@@ -7,17 +7,22 @@ using Zenject;
 
 namespace StarDust
 {
-  public class CardsModel :IInitializable
+  public class CardsModel : IInitializable
   {
+    private int _deckSize = 20;
+
     public int NumberOfCardOnHand { get { return _cardsOnHand.Count; } private set { } }
     private int _maxCardsOnHand = 5;
     private List<Card> _cardsOnHand;
 
+    private Queue<Card> _playersDeck;
+ 
     // Card model events:
-    public event Action<Card> OnNewCardCreated;
+    public event Action<Card> OnNewCardOnHand;
     public event Action<Card> OnCardReleased;
+    public event Action<Card> OnCardRemovedFromHand;
     public event Action<UnitCard> OnNewUnitCreated;
-       
+
     CardFactory cardFactory;
     /* ok, this is to be discussed:
      - should model maintain position of last released card?
@@ -32,47 +37,73 @@ namespace StarDust
      OR
      - should some other view on scene take care of placing models?
      */
-    public PointerEventData lastCardEventData;
+   // public PointerEventData lastCardEventData;
 
     public CardsModel(CardFactory cardFactory)
     {
       this.cardFactory = cardFactory;
+      _playersDeck = new Queue<Card>();
       _cardsOnHand = new List<Card>();
     }
-
-    public void AddNewCard()
+    
+    public void Initialize()
     {
-      // UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
-      Card c = cardFactory.CreateRandomCard();
-      AddCardInternal(c);
-    }
+      CreateRandomCardDeck();
 
-    public void ReleaseCard(Card c)
-    {
-      Debug.Log("Card released: "+c.CardName);
-      
-      if(c.Type == CardType.UNIT)
+      for (int i = 0; i < 5; i++)
       {
-       if(OnNewUnitCreated != null) OnNewUnitCreated(c as UnitCard);
+        AddTopCardFromDeckToHand();
       }
     }
 
 
+    private void CreateRandomCardDeck()
+    {
+      for(int i=0;i<_deckSize;i++)
+      {
+        Card newCard = cardFactory.CreateRandomCard();
+        _playersDeck.Enqueue(newCard);
+      }
+    }
 
-    private void AddCardInternal(Card newCard)
+    public void RemoveCardFromHand(Card card)
+    {
+      // Inform UI to remove card from slot
+      _cardsOnHand.Remove(card);
+      _playersDeck.Enqueue(card);
+      if (OnCardRemovedFromHand != null) OnCardRemovedFromHand(card);
+    }
+
+    public void AddTopCardFromDeckToHand()
+    {
+      // UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
+      Card c = cardFactory.CreateRandomCard();
+      AddCardToHandInternal(_playersDeck.Dequeue());
+    }
+    /// <summary>
+    /// When player stops draging a card.
+    /// </summary>
+    /// <param name="c"></param>
+    public void ReleaseCard(Card c)
+    {
+      Debug.Log("Card released: " + c.CardName);
+
+      if (c.Type == CardType.UNIT)
+      {
+        if (OnNewUnitCreated != null) OnNewUnitCreated(c as UnitCard);
+      }
+    }
+    
+    private void AddCardToHandInternal(Card newCard)
     {
       if (NumberOfCardOnHand < _maxCardsOnHand)
       {
         _cardsOnHand.Add(newCard);
-        if (OnNewCardCreated != null) OnNewCardCreated(newCard);
+        if (OnNewCardOnHand != null) OnNewCardOnHand(newCard);
       }
-    }
-
-    public void Initialize()
-    {
-      for(int i=0;i<5; i++)
+      else
       {
-        AddNewCard();
+        Debug.Log("Can not add more cards, because player has " + _cardsOnHand.Count + " cards");
       }
     }
   }

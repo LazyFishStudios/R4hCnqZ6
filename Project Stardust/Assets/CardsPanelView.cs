@@ -14,7 +14,7 @@ namespace StarDust
     [Inject]
     CardViewsFactory _cardsViewsFactory;
 
-    List<Slot> cardSlots;
+    List<Slot> cardSlots; 
 
     CardView currentDraggedCardView;
 
@@ -25,7 +25,15 @@ namespace StarDust
       {
         cardSlots.Add(new Slot() { card = null, slot = t });
       }
-      _cardsModel.OnNewCardCreated += _cardsModel_OnNewCardAdded;
+      _cardsModel.OnNewCardOnHand += _cardsModel_OnNewCardAdded;
+      _cardsModel.OnCardRemovedFromHand += _cardsModel_OnCardRemovedFromHand;
+    }
+
+    private void _cardsModel_OnCardRemovedFromHand(Card obj)
+    {
+      Slot toClear = GetSlotWithCard(obj);
+      Destroy(toClear.cardView.gameObject);
+      toClear.card = null;
     }
 
     public void SetCurrentDraggedCard(CardView draggedCardView)
@@ -42,6 +50,8 @@ namespace StarDust
       }
       return null;
     }
+
+
     private void _cardsModel_OnNewCardAdded(Card newCard)
     {
       Slot s = GetFirstFreeSlot();
@@ -53,6 +63,11 @@ namespace StarDust
     private Slot GetFirstFreeSlot()
     {
       return cardSlots.First(s => s.card == null);
+    }
+
+    private Slot GetSlotWithCard(Card c)
+    {
+      return cardSlots.First(s => s.card == c);
     }
   }
 

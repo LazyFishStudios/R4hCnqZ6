@@ -22,10 +22,6 @@ namespace StarDust
 
     public override void OnCardPlayed()
     {
-      // For example each ship gets +1 to fuel; 
-      Vector2 p = _cardsModel.lastCardEventData.position;
-      Vector3 pos =Camera.main.ScreenToWorldPoint(new Vector3(p.x, p.y, 10));
-      GameObject.Instantiate(Prefab,pos,Prefab.transform.rotation);
       _playerModel.Lives++;
     }
   }
