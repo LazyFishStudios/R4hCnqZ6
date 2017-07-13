@@ -7,7 +7,7 @@ using Zenject;
 
 namespace StarDust
 {
-  public class CardsModel
+  public class CardsModel :IInitializable
   {
     public int NumberOfCardOnHand { get { return _cardsOnHand.Count; } private set { } }
     private int _maxCardsOnHand = 5;
@@ -37,7 +37,7 @@ namespace StarDust
     public CardsModel(CardFactory cardFactory)
     {
       this.cardFactory = cardFactory;
-      _cardsOnHand = new List<Card>(); 
+      _cardsOnHand = new List<Card>();
     }
 
     public void AddNewCard()
@@ -65,6 +65,14 @@ namespace StarDust
       {
         _cardsOnHand.Add(newCard);
         if (OnNewCardCreated != null) OnNewCardCreated(newCard);
+      }
+    }
+
+    public void Initialize()
+    {
+      for(int i=0;i<5; i++)
+      {
+        AddNewCard();
       }
     }
   }

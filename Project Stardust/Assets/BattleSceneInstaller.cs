@@ -6,7 +6,7 @@ namespace StarDust
   {
     public override void InstallBindings()
     {
-      Container.Bind<CardsModel>().AsSingle();
+      Container.BindInterfacesAndSelfTo<CardsModel>().AsSingle();
       Container.Bind<PlayerModel>().AsSingle();
       Container.Bind<CardsPanelView>().FromComponentInHierarchy();
       Container.Bind<UnitHolderView>().FromComponentInHierarchy();

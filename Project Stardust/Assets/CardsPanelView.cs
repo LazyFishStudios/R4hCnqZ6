@@ -18,7 +18,7 @@ namespace StarDust
 
     CardView currentDraggedCardView;
 
-    void Start()
+    void Awake()
     {
       cardSlots = new List<Slot>();
       foreach (Transform t in transform)
