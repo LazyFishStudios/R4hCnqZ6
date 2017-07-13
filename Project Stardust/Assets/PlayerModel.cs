@@ -6,6 +6,7 @@ namespace StarDust
 {
   public class PlayerModel
   {
+
     private int _lives = 30;
     public int Lives
     {
@@ -19,5 +20,7 @@ namespace StarDust
         Debug.Log("Lives: " + _lives);
       }
     }
+
+    
   }
 }

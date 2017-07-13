@@ -18,7 +18,6 @@ namespace StarDust
     private void _cardsModel_OnNewUnitCreated(UnitCard obj)
     {
       Instantiate(obj.Prefab);
-      _cardsModel.RemoveCardFromHand(obj);
     }
   }
 }

@@ -53,8 +53,6 @@ namespace StarDust
       {
         rt.offsetMin = rt.offsetMax = Vector2.zero;
       }
-      // TO DO: Find what card is dragged:
-      Debug.Log(_cardsPanelView.name);
       Card c = _cardsPanelView.GetCardFromCardView(cardView);
       _cardsModel.ReleaseCard(c);
       _cardsPanelView.SetCurrentDraggedCard(null);

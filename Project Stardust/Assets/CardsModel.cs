@@ -14,7 +14,7 @@ namespace StarDust
     public int NumberOfCardOnHand { get { return _cardsOnHand.Count; } private set { } }
     private int _maxCardsOnHand = 5;
     private List<Card> _cardsOnHand;
-
+    private List<Card> _cardsOnTable;
     private Queue<Card> _playersDeck;
  
     // Card model events:
@@ -43,6 +43,7 @@ namespace StarDust
     {
       this.cardFactory = cardFactory;
       _playersDeck = new Queue<Card>();
+      _cardsOnTable = new List<Card>();
       _cardsOnHand = new List<Card>();
     }
     
@@ -55,8 +56,7 @@ namespace StarDust
         AddTopCardFromDeckToHand();
       }
     }
-
-
+    
     private void CreateRandomCardDeck()
     {
       for(int i=0;i<_deckSize;i++)
@@ -68,18 +68,19 @@ namespace StarDust
 
     public void RemoveCardFromHand(Card card)
     {
-      // Inform UI to remove card from slot
+      // Inform UI to remove card from hand slot
       _cardsOnHand.Remove(card);
-      _playersDeck.Enqueue(card);
       if (OnCardRemovedFromHand != null) OnCardRemovedFromHand(card);
     }
 
     public void AddTopCardFromDeckToHand()
     {
       // UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
-      Card c = cardFactory.CreateRandomCard();
+      //  Card c = cardFactory.CreateRandomCard();
+      
       AddCardToHandInternal(_playersDeck.Dequeue());
     }
+
     /// <summary>
     /// When player stops draging a card.
     /// </summary>
@@ -91,6 +92,7 @@ namespace StarDust
       if (c.Type == CardType.UNIT)
       {
         if (OnNewUnitCreated != null) OnNewUnitCreated(c as UnitCard);
+        if (OnCardRemovedFromHand != null) OnCardRemovedFromHand(c);
       }
     }
     

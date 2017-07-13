@@ -11,10 +11,7 @@ namespace StarDust
     [Inject] // This is PROBABLY after ctors()
     PlayerModel _playerModel;
 
-    [Inject]
-    CardsModel _cardsModel;
-
-    // parameter passed bo base must match card description ScriptableObject in Resourced 
+    // parameter passed to base must match card description ScriptableObject in Resourced 
     public BattleCruiserCard() : base("BattleCruiser")
     {
       Debug.Log("BattleCruiser ctor()");
