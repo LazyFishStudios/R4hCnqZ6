@@ -9,6 +9,7 @@ namespace StarDust
 {
   public class drag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
   {
+    [Inject]
     Canvas c;
     RectTransform rt;
     Camera mainCamera;
@@ -21,12 +22,13 @@ namespace StarDust
 
     CardView cardView;
 
+
     void Start()
     {
       rt = GetComponent<RectTransform>();
       cardView = GetComponent<CardView>();
       mainCamera = Camera.main;
-      c = FindObjectOfType<Canvas>(); // REMOVE THIS!!! It hurts my eyes -,-"
+      //c = FindObjectOfType<Canvas>(); // REMOVE THIS!!! It hurts my eyes -,-"
     }
 
     public void OnBeginDrag(PointerEventData eventData)

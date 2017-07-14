@@ -46,7 +46,6 @@ namespace StarDust
 
     public CardView Create()
     {
-    //  CardView newCardView = null;
       switch (viewController.CardToCreate.Type)
       {
         case (CardType.UNIT):

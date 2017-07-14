@@ -9,6 +9,7 @@ namespace StarDust
   {
     // temporary hack for canvas transform reference:
     public Transform CanvasTransform;
+    public Canvas c;
 
     public override void InstallBindings()
     {
@@ -26,6 +27,9 @@ namespace StarDust
       Container.Bind<CardViewsFactory>().AsSingle();
       Container.Bind<CardViewsFactoryController>().AsSingle();
       Container.Bind<Transform>().FromInstance(CanvasTransform).WhenInjectedInto<CardViewFactoryInternal>();
+      Container.Bind<Canvas>().FromInstance(c);
+
+      Container.BindFactory<UnitView, UnitView.Factory>().FromComponentInNewPrefabResource("CardViews/UnitView").UnderTransformGroup("UnitHolder");
     }
   }
 }
