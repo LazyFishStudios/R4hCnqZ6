@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace StarDust
 {
+
+  // Maybe in future this whole model while be moved to card model.
   public class PlayerModel
   {
-
     private int _lives = 30;
     public int Lives
     {
@@ -21,6 +22,7 @@ namespace StarDust
       }
     }
 
+    
     
   }
 }

@@ -11,6 +11,24 @@ namespace StarDust
   {
     private int _deckSize = 20;
 
+    private const int MaxUnits = 4;
+
+    private int _unitsOwned = 0;
+
+
+    public int UnitsOwned
+    {
+      get
+      {
+        return _unitsOwned;
+      }
+
+      set
+      {
+        _unitsOwned = value;
+      }
+    }
+
     public int NumberOfCardOnHand { get { return _cardsOnHand.Count; } private set { } }
     private int _maxCardsOnHand = 5;
     private List<Card> _cardsOnHand;
@@ -25,21 +43,6 @@ namespace StarDust
 
     CardFactory cardFactory;
     
-    /* ok, this is to be discussed:
-     - should model maintain position of last released card?
-     OR
-     - should cardPlayedAction() get this as parameter?
-     OR
-     - should view hold this data?
-     OR
-     - should card hold this data just in case it is needed?
-     OR
-     - should CardsPanelView hold data what is dragged?
-     OR
-     - should some other view on scene take care of placing models?
-     */
-    // public PointerEventData lastCardEventData;
-
     public CardsModel(CardFactory cardFactory)
     {
       this.cardFactory = cardFactory;
@@ -80,6 +83,8 @@ namespace StarDust
       AddCardToHandInternal(_playersDeck.Dequeue());
     }
 
+
+
     /// <summary>
     /// When player stops draging a card.
     /// </summary>
@@ -92,6 +97,7 @@ namespace StarDust
       {
         case (CardType.UNIT):
           {
+            UnitsOwned++;
             if (OnNewUnitCreated != null) OnNewUnitCreated(c as UnitCard);
             RemoveCardFromHand(c);
             break;

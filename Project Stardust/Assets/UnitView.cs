@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using Zenject;
 
 namespace StarDust
@@ -10,14 +11,23 @@ namespace StarDust
     [Inject]
     PlayerModel pm;
 
-    private void Update()
-    {
-      Debug.Log(pm.Lives);
-    }
+    [SerializeField]
+    TextMeshProUGUI DefenceLabel;
 
+    [SerializeField]
+    TextMeshProUGUI AttackLabel;
+
+    [SerializeField]
+    TextMeshProUGUI FuelLabel;
+
+    [SerializeField]
+    Transform Center;
     public void FillValues(UnitCard unitCard)
     {
-      Debug.Log(unitCard.Attack);
+      DefenceLabel.text = unitCard.Defence.ToString();
+      AttackLabel.text = unitCard.Attack.ToString();
+      FuelLabel.text = unitCard.Fuel.ToString();
+      Instantiate(unitCard.Prefab, Center);
     }
 
     // This is used by Zenject binding
