@@ -7,10 +7,11 @@ using Zenject;
 
 namespace StarDust
 {
-  public class drag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
+  public class DragCardBehaviour : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
   {
     [Inject]
     Canvas c;
+
     RectTransform rt;
     Camera mainCamera;
 
@@ -28,7 +29,6 @@ namespace StarDust
       rt = GetComponent<RectTransform>();
       cardView = GetComponent<CardView>();
       mainCamera = Camera.main;
-      //c = FindObjectOfType<Canvas>(); // REMOVE THIS!!! It hurts my eyes -,-"
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -43,21 +43,29 @@ namespace StarDust
 
     public void OnEndDrag(PointerEventData eventData)
     {
+      UnitView target = null;
+
       Ray cameraRay = mainCamera.ScreenPointToRay(Input.mousePosition);
       RaycastHit hit;
       bool hitSuccess = Physics.Raycast(cameraRay, out hit);
+
+
       if (hitSuccess)
       {
         Debug.Log(hit.transform.gameObject);
-        hit.transform.rotation = UnityEngine.Random.rotation;
+        target = hit.transform.gameObject.GetComponent<UnitView>();
       }
-      else
-      {
-        rt.offsetMin = rt.offsetMax = Vector2.zero;
-      }
+
       Card c = _cardsPanelView.GetCardFromCardView(cardView);
-      _cardsModel.ReleaseCard(c);
+      _cardsModel.ReleaseCardOverUnit(c);
+
+
       _cardsPanelView.SetCurrentDraggedCard(null);
+    }
+
+    private void ResetCardPosition()
+    {
+      rt.offsetMin = rt.offsetMax = Vector2.zero;
     }
   }
 }

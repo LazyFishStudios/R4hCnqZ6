@@ -89,7 +89,7 @@ namespace StarDust
     /// When player stops draging a card.
     /// </summary>
     /// <param name="c"></param>
-    public void ReleaseCard(Card c)
+    public void ReleaseCardOverUnit(Card c)
     {
       Debug.Log("Card released: " + c.CardName);
 
