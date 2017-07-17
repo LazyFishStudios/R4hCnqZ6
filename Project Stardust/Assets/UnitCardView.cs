@@ -19,12 +19,15 @@ namespace StarDust
     [SerializeField]
     TextMeshProUGUI fuel;
 
+    public UnitCard thisUnitCard;
+
     public void UpdateDisplayedValues(UnitCard newUnitCard)
     {
       cost.text = newUnitCard.Cost.ToString();
       defence.text = newUnitCard.Defence.ToString();
       attack.text = newUnitCard.Attack.ToString();
       fuel.text = newUnitCard.Fuel.ToString();
+      thisUnitCard = newUnitCard;
     }
   }
 }

@@ -11,16 +11,21 @@ namespace StarDust
     [Inject] // This is PROBABLY after ctors()
     PlayerModel _playerModel;
 
+    [Inject]
+    CardsModel _cardsModel;
+
     // parameter passed bo base must match card description ScriptableObject in Resourced 
     public HealPlanetCard() : base("HealPlanet")
     {
-      Debug.Log("Heal card ctor()");
+      // Debug.Log("Heal card ctor()");
     }
 
     public override void OnCardPlayed()
     {
-      // For example each ship gets +1 to fuel;      
-      _playerModel.Lives++;
+      // For example each ship gets +1 to fuel; 
+      Card target = _cardsModel.LastFieldInteraction.Target;
+      (target as UnitCard).UpdateFuel(1);
+      Debug.Log("Heal card used");
     }
   }
 }

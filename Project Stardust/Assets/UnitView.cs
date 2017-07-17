@@ -6,6 +6,11 @@ using Zenject;
 
 namespace StarDust
 {
+  /// <summary>
+  /// 
+  /// Represents unit that is on field.
+  /// 
+  /// </summary>
   public class UnitView : MonoBehaviour
   {
     [Inject]
@@ -22,13 +27,38 @@ namespace StarDust
 
     [SerializeField]
     Transform Center;
+
+    public UnitCard unitCard;
+
     public void FillValues(UnitCard unitCard)
     {
       DefenceLabel.text = unitCard.Defence.ToString();
       AttackLabel.text = unitCard.Attack.ToString();
       FuelLabel.text = unitCard.Fuel.ToString();
       Instantiate(unitCard.Prefab, Center);
+
+      this.unitCard = unitCard;
     }
+
+    private void Start()
+    {
+      unitCard.OnCardValuesUpdated += UnitCard_OnCardValuesUpdated;
+    }
+
+    private void UnitCard_OnCardValuesUpdated()
+    {
+      DefenceLabel.text = unitCard.Defence.ToString();
+      AttackLabel.text = unitCard.Attack.ToString();
+      FuelLabel.text = unitCard.Fuel.ToString();
+      Instantiate(unitCard.Prefab, Center);
+    }
+
+    private void OnDestroy()
+    {
+      unitCard.OnCardValuesUpdated -= UnitCard_OnCardValuesUpdated;
+    }
+
+
 
     // This is used by Zenject binding
     public class Factory : Factory<UnitView>

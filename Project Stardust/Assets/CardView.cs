@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardView : MonoBehaviour 
+public abstract class CardView : MonoBehaviour 
 {
-	void Start () 
-	{
-		
-	}
+	
 }

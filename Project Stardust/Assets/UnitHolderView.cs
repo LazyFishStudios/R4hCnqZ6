@@ -29,8 +29,6 @@ namespace StarDust
 
     private void _cardsModel_OnNewUnitCreated(UnitCard unitCard)
     {
-      // Replace this with new model objects factory:
-      // Instantiate(obj.Prefab);
       UnitView uv = _unitViewFactory.Create();
       uv.FillValues(unitCard);
      

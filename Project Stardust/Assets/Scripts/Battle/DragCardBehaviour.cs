@@ -21,19 +21,18 @@ namespace StarDust
     [Inject]
     CardsPanelView _cardsPanelView;
 
-    CardView cardView;
-
-
+    CardView thisCardView;
+    
     void Start()
     {
       rt = GetComponent<RectTransform>();
-      cardView = GetComponent<CardView>();
+      thisCardView = GetComponent<CardView>();
       mainCamera = Camera.main;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-      _cardsPanelView.SetCurrentDraggedCard(cardView);
+      _cardsPanelView.SetCurrentDraggedCard(thisCardView);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -43,23 +42,24 @@ namespace StarDust
 
     public void OnEndDrag(PointerEventData eventData)
     {
-      UnitView target = null;
+      ReleasedCardData data = new ReleasedCardData();
+      data.ReleasedCard = _cardsPanelView.GetCardFromCardView(thisCardView);
 
       Ray cameraRay = mainCamera.ScreenPointToRay(Input.mousePosition);
       RaycastHit hit;
       bool hitSuccess = Physics.Raycast(cameraRay, out hit);
-
-
+      
       if (hitSuccess)
       {
-        Debug.Log(hit.transform.gameObject);
+        UnitView target = null;
+        // Debug.Log(hit.transform.gameObject);
         target = hit.transform.gameObject.GetComponent<UnitView>();
+        data.Target = target.unitCard;
       }
 
-      Card c = _cardsPanelView.GetCardFromCardView(cardView);
-      _cardsModel.ReleaseCardOverUnit(c);
+      _cardsModel.ReleaseCardOverUnit(data);
 
-
+      ResetCardPosition();
       _cardsPanelView.SetCurrentDraggedCard(null);
     }
 

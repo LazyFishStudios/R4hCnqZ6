@@ -22,7 +22,7 @@ namespace StarDust
     
     protected T LoadCardDescitpion<T>() where T : CardDescription
     {
-      Debug.Log("CardDescriptions/" + CardName);
+      // Debug.Log("CardDescriptions/" + CardName);
       T desc = Resources.Load<T>("CardDescriptions/" + CardName);
       return desc;
     }

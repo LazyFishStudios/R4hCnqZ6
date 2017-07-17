@@ -17,7 +17,7 @@ namespace StarDust
     // parameter passed bo base must match card description ScriptableObject in Resourced 
     public DeathStarCard() : base("DeathStar")
     {
-      Debug.Log("DeathStar ctor()");
+      // Debug.Log("DeathStar ctor()");
     }
 
     public override void OnCardPlayed()

@@ -14,7 +14,7 @@ namespace StarDust
     // parameter passed to base must match card description ScriptableObject in Resourced 
     public BattleCruiserCard() : base("BattleCruiser")
     {
-      Debug.Log("BattleCruiser ctor()");
+   //   Debug.Log("BattleCruiser ctor()");
     }
 
     public override void OnCardPlayed()

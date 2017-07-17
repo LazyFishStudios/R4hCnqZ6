@@ -32,8 +32,10 @@ namespace StarDust
     public int NumberOfCardOnHand { get { return _cardsOnHand.Count; } private set { } }
     private int _maxCardsOnHand = 5;
     private List<Card> _cardsOnHand;
-    private List<Card> _cardsOnTable;
+    private List<Card> _cardsOnField;
     private Queue<Card> _playersDeck;
+
+    public ReleasedCardData LastFieldInteraction;
 
     // Card model events:
     public event Action<Card> OnNewCardOnHand;
@@ -42,12 +44,12 @@ namespace StarDust
     public event Action<UnitCard> OnNewUnitCreated;
 
     CardFactory cardFactory;
-    
+
     public CardsModel(CardFactory cardFactory)
     {
       this.cardFactory = cardFactory;
       _playersDeck = new Queue<Card>();
-      _cardsOnTable = new List<Card>();
+      _cardsOnField = new List<Card>();
       _cardsOnHand = new List<Card>();
     }
 
@@ -86,27 +88,26 @@ namespace StarDust
 
 
     /// <summary>
-    /// When player stops draging a card.
+    /// When player stops draging a card and releases it on field.
     /// </summary>
     /// <param name="c"></param>
-    public void ReleaseCardOverUnit(Card c)
+    public void ReleaseCardOverUnit(ReleasedCardData data)
     {
-      Debug.Log("Card released: " + c.CardName);
+      LastFieldInteraction = data;
+      Debug.Log("Card released: " + data.ReleasedCard.CardName);
 
-      switch (c.Type)
+      if (data.ReleasedCard.Type == CardType.UNIT)
       {
-        case (CardType.UNIT):
-          {
-            UnitsOwned++;
-            if (OnNewUnitCreated != null) OnNewUnitCreated(c as UnitCard);
-            RemoveCardFromHand(c);
-            break;
-          }
-        case (CardType.INSTANT):
-          {
-            RemoveCardFromHand(c);
-            break;
-          }
+        UnitsOwned++;
+        if (OnNewUnitCreated != null) OnNewUnitCreated(data.ReleasedCard as UnitCard);
+        RemoveCardFromHand(data.ReleasedCard);
+      }
+
+      if (data.Target != null && data.ReleasedCard.Type == CardType.INSTANT)
+      {
+        Debug.Log("Instant card " + data.ReleasedCard.CardName + " released over: " + data.Target.CardName);
+        RemoveCardFromHand(data.ReleasedCard);
+        data.ReleasedCard.OnCardPlayed();
       }
     }
 
@@ -121,6 +122,12 @@ namespace StarDust
       {
         Debug.Log("Can not add more cards, because player has " + _cardsOnHand.Count + " cards on hand");
       }
+    }
+
+    private void MoveCardFromHandToDeck(Card c)
+    {
+      _cardsOnHand.Remove(c);
+      _playersDeck.Enqueue(c);
     }
   }
 }
