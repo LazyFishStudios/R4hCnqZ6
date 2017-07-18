@@ -45,6 +45,9 @@ namespace StarDust
 
     CardFactory cardFactory;
 
+    [Inject]
+    DefendingPlayer _playerModel;
+
     public CardsModel(CardFactory cardFactory)
     {
       this.cardFactory = cardFactory;

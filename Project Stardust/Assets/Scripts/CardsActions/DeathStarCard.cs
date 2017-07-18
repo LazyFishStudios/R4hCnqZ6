@@ -9,7 +9,7 @@ namespace StarDust
   public class DeathStarCard : UnitCard
   {
     [Inject] // This is PROBABLY after ctors()
-    PlayerModel _playerModel;
+    DefendingPlayer _playerModel;
 
     [Inject]
     CardsModel _cardsModel;

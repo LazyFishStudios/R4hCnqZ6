@@ -9,10 +9,14 @@ namespace StarDust
   {
     [Inject]
     CardsModel cm;
+
+    [Inject]
+    GameLogic gl;
     
     public void OnButtonPressed()
     {
-      cm.AddTopCardFromDeckToHand(); 
+      cm.AddTopCardFromDeckToHand();
+      gl.StartNextRound();
     }
   }
 }

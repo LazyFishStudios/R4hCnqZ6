@@ -12,18 +12,11 @@ public class DragTests : MonoBehaviour
   public Transform hitObject;
   float dist;
 
-  public void Mors()
-  {
-    Debug.Log("Mors");
-  }
-
   private void Start()
   {
     cam = Camera.main;
   }
-
-
-
+  
   private void Update()
   {
     Ray r = cam.ScreenPointToRay(Input.mousePosition);
@@ -48,15 +41,13 @@ public class DragTests : MonoBehaviour
 
     if (Input.GetMouseButtonUp(0))
     {
-      Debug.Log("Drag end");
       isDragging = false;
     }
     Debug.DrawRay(r.origin, r.direction * 100, Color.red);
     Debug.DrawLine(rh.point, rh.point + offset, Color.yellow);
 
-    if(isDragging)
+    if (isDragging)
     {
-      Debug.Log("drag...");
       Vector3 p = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dist));
       hitObject.transform.position = p + offset;
     }

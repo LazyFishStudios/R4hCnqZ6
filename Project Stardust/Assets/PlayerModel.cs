@@ -1,28 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace StarDust
 {
-
-  // Maybe in future this whole model while be moved to card model.
-  public class PlayerModel
+/// <summary>
+/// Base class for both attacking and defending player
+/// </summary>
+/// 
+  public abstract class PlayerModel
   {
-    private int _lives = 30;
-    public int Lives
+    GameLogic _gameLogic;
+
+    public int Energy { get; private set; }
+
+    [Inject]
+    public void InjectDependencies(GameLogic gameLogic)
     {
-      get
-      {
-        return _lives;
-      }
-      set
-      {
-        _lives = value;
-        Debug.Log("Lives: " + _lives);
-      }
+      _gameLogic = gameLogic;
+      _gameLogic.OnNextRoundStarted += _gameLogic_OnNextRoundStarted;
     }
 
-    
-    
+    private void _gameLogic_OnNextRoundStarted()
+    {
+      Debug.Log(":3=");
+    }
   }
 }
