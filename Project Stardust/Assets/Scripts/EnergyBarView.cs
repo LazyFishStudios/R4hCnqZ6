@@ -10,7 +10,7 @@ namespace StarDust
   public class EnergyBarView : MonoBehaviour
   {
     [Inject]
-    GameLogic _gameLogic;
+    DefendingPlayer defendingPlayer;
 
     public Color filledColor;
     public Color emptyColor;
@@ -24,18 +24,18 @@ namespace StarDust
       {
         energyFields.Add(childTransform.GetComponent<Image>());
       }
-      _gameLogic.OnNextRoundStarted += _gameLogic_OnRoundChanged;
-      SetEnergyValue(_gameLogic.CurrentRound);
+      defendingPlayer.OnEnergyChanged += _gameLogic_OnRoundChanged;
+      SetEnergyValue(defendingPlayer.Energy);
     }
 
     private void OnDestroy()
     {
-      _gameLogic.OnNextRoundStarted -= _gameLogic_OnRoundChanged;
+      defendingPlayer.OnEnergyChanged -= _gameLogic_OnRoundChanged;
     }
 
     private void _gameLogic_OnRoundChanged()
     {
-      SetEnergyValue(_gameLogic.CurrentRound);
+      SetEnergyValue(defendingPlayer.Energy);
     }
 
     private void SetEnergyValue(int energyValue)

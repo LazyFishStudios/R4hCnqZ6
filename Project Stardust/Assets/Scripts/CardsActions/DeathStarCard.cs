@@ -24,5 +24,12 @@ namespace StarDust
     {
       Debug.Log("Destroy planet...");
     }
+
+    public override void OnUnitAttacked()
+    {
+      base.OnUnitAttacked();
+      // Some test attack action: "Whenever DeathStar attacks, player gains +2 energy"
+      _playerModel.AddEnergy(2);
+    }
   }
 }

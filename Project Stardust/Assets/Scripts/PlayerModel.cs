@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -14,7 +15,7 @@ namespace StarDust
     GameLogic _gameLogic;
 
     public int Energy { get; private set; }
-
+    public event Action OnEnergyChanged;
     [Inject]
     public void InjectDependencies(GameLogic gameLogic)
     {
@@ -25,6 +26,12 @@ namespace StarDust
     private void _gameLogic_OnNextRoundStarted()
     {
       Debug.Log(":3=");
+    }
+
+    public void AddEnergy(int e)
+    {
+      Energy += e;
+      if (OnEnergyChanged != null) OnEnergyChanged();
     }
   }
 }
