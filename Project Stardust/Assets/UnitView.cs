@@ -8,14 +8,11 @@ namespace StarDust
 {
   /// <summary>
   /// 
-  /// Represents unit that is on field.
+  /// Represents units view that is on field.
   /// 
   /// </summary>
   public class UnitView : MonoBehaviour
   {
-    [Inject]
-    PlayerModel pm;
-
     [SerializeField]
     TextMeshProUGUI DefenceLabel;
 
