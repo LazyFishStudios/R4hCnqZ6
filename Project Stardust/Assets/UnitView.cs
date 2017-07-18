@@ -23,18 +23,15 @@ namespace StarDust
     TextMeshProUGUI FuelLabel;
 
     [SerializeField]
-    Transform Center;
+    Transform Center; // Place where 3D model should be placed.
 
+    // UnitCard attached to this view
     public UnitCard unitCard;
 
     public void FillValues(UnitCard unitCard)
     {
-      DefenceLabel.text = unitCard.Defence.ToString();
-      AttackLabel.text = unitCard.Attack.ToString();
-      FuelLabel.text = unitCard.Fuel.ToString();
-      Instantiate(unitCard.Prefab, Center);
-
       this.unitCard = unitCard;
+      UnitCard_OnCardValuesUpdated();
     }
 
     private void Start()

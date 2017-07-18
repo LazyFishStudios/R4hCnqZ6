@@ -28,5 +28,17 @@ namespace StarDust
       CurrentRound++;
       if (OnNextRoundStarted != null) OnNextRoundStarted();
     }
+
+    public void UnitAttack(UnitCard attacking, UnitCard target)
+    {
+      Debug.Log(attacking.CardName + " attacked " + target.CardName);
+
+      target.UpdateDefence(-attacking.Attack);
+      attacking.OnUnitAttacked();
+      if (target.Defence == 0) {
+        // Destroy Unit
+        // add left damage to planet
+      } 
+    }
   }
 }

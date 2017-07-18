@@ -8,9 +8,6 @@ namespace StarDust
 {
   public class BattleCruiserCard : UnitCard
   {
-    [Inject] // This is PROBABLY after ctors()
-    DefendingPlayer _playerModel;
-
     // parameter passed to base must match card description ScriptableObject in Resourced 
     public BattleCruiserCard() : base("BattleCruiser")
     {

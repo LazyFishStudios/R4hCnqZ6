@@ -12,7 +12,7 @@ namespace StarDust
     public GameObject Prefab { get; private set; }
 
     [Inject]
-    CardsModel cm;
+    CardsModel _cardsModel;
 
     public UnitCard(string cardName)
     {
@@ -37,8 +37,28 @@ namespace StarDust
     public void UpdateFuel(int value)
     {
       Fuel += value;
-      Debug.Log("dddd: "+cm.LastFieldInteraction.ReleasedCard.CardName);
+      Debug.Log("changed fuel for: " + _cardsModel.LastFieldInteraction.ReleasedCard.CardName);
       if (OnCardValuesUpdated != null) OnCardValuesUpdated();
+    }
+
+    public void UpdateDefence(int value)
+    {
+      Defence += value;
+      Debug.Log("changed defence for: " + _cardsModel.LastFieldInteraction.ReleasedCard.CardName);
+      if (OnCardValuesUpdated != null) OnCardValuesUpdated();
+    }
+
+    // Here all events will be added
+    // OnTurnStarted, finished, etc... This can be overwritten in child classes.
+
+    public virtual void OnUnitAttacked()
+    {
+      UpdateFuel(-1);
+    }
+
+    public virtual void OnUnitHasBeenAttacked()
+    {
+
     }
   }
 }
