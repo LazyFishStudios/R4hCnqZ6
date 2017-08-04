@@ -5,8 +5,8 @@ using Zenject;
 
 /// <summary>
 /// 
-/// Logic for draging ALL Unit views on table.
-/// Draw drag arrow also
+/// Logic for draging ALL Unit views on table. (NOT cards, but UNITS)
+/// Draw drag arrow also.
 /// 
 /// </summary>
 
@@ -21,15 +21,13 @@ namespace StarDust
     Transform ArrowHead;
 
     Camera cam;
-    Vector3 offset;
     Vector3 hitPosition;
     public GameObject probe;
-    bool isDragging;
-    public Transform hitObject;
-    float dist;
-    RaycastHit[] hits;
-    UnitCard attackingUnit;
-    UnitCard attackedUnit;
+    float distanceToCamera;
+
+    UnitView attackingUnitView = null;
+    UnitView attackedUnitView = null;
+
 
     [Inject]
     GameLogic _gameLogic;
@@ -38,88 +36,81 @@ namespace StarDust
     {
       cam = Camera.main;
       _lineRenderer = GetComponent<LineRenderer>();
-      _lineRenderer.enabled = false;
       _arrowSpriteRenderer = ArrowHead.GetComponent<SpriteRenderer>();
       _arrowSpriteRenderer.color = _lineRenderer.endColor;
-      _arrowSpriteRenderer.enabled = false;
+      SetArrowVisibility(false);
+    }
+
+
+    private UnitView RaycastForUnitCardView(Vector2 screenPosition)
+    {
+      UnitView selected = null;
+      Ray rayFromCamera;
+      RaycastHit rayHit;
+      rayFromCamera = cam.ScreenPointToRay(Input.mousePosition);
+      bool hitSuccess = Physics.Raycast(rayFromCamera, out rayHit);
+
+      if (hitSuccess)
+      { 
+        probe.transform.position = rayHit.point;
+        selected = rayHit.transform.GetComponent<UnitView>();
+        // Get distance to camera:
+        Vector3 h = rayHit.point - cam.transform.position;
+        distanceToCamera = Vector3.Dot(h, cam.transform.forward);
+      }
+      return selected;
+    }
+
+    private void SetArrowVisibility(bool visiblity)
+    {
+      _lineRenderer.enabled = visiblity;
+      _arrowSpriteRenderer.enabled = visiblity;
+    }
+
+    private void UpdateArrowHeadPosition()
+    {
+      Vector3 p = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, distanceToCamera));
+      _lineRenderer.SetPosition(1, p);
+      ArrowHead.position = p;
+      ArrowHead.up = _lineRenderer.GetPosition(1) - _lineRenderer.GetPosition(0);
     }
 
     private void Update()
     {
-      Ray rayFromCamera = cam.ScreenPointToRay(Input.mousePosition);
-
-      // Find first object to drag:
-      if (isDragging == false)
+      if (Input.GetMouseButtonDown(0))
       {
+        attackingUnitView = RaycastForUnitCardView(Input.mousePosition);
+        bool hasHit = (attackingUnitView != null);
 
-        RaycastHit rayHit;
-        bool hitSuccess = Physics.Raycast(rayFromCamera, out rayHit);
-        if (hitSuccess)
+        SetArrowVisibility(hasHit);
+        if (hasHit)
         {
-          hitObject = rayHit.transform;
-          probe.transform.position = rayHit.point;
-          attackingUnit = hitObject.GetComponent<UnitView>().unitCard;
+          _lineRenderer.SetPosition(0, attackingUnitView.transform.position);
         }
 
-        if (hitSuccess && Input.GetMouseButtonDown(0))
-        {
-          Debug.Log("Drag start");
-          _lineRenderer.enabled = true;
-          _arrowSpriteRenderer.enabled = true;
-          
-          isDragging = true;
-          offset = hitObject.transform.position - rayHit.point;
-          _lineRenderer.SetPosition(0, hitObject.transform.position);
-          // Get distance to camera:
-          Vector3 h = rayHit.point - cam.transform.position;
-          dist = Vector3.Dot(h, cam.transform.forward);
-        }
       }
-
-      if (isDragging)
+      if (attackingUnitView == null)
       {
-        Vector3 p = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dist));
-       // hitObject.transform.position = p + offset;
-        _lineRenderer.SetPosition(1, p);
-        ArrowHead.position = p;
-        ArrowHead.up = _lineRenderer.GetPosition(1) - _lineRenderer.GetPosition(0);
-
-
-        // if we are dragging a card, check if anything else will be hit by raycast:
-        hits = Physics.RaycastAll(rayFromCamera);
+        return;
       }
+
+      UpdateArrowHeadPosition();
 
       // stop drag on button up:
-      if (Input.GetMouseButtonUp(0) && isDragging)
+      if (Input.GetMouseButtonUp(0))
       {
-        isDragging = false;
-        _lineRenderer.enabled = false;
-        _arrowSpriteRenderer.enabled = false;
-        /* 2 is only valid state to call gamelogic.UnitAttacked.
-         2 hits means that we are dragging UnitView and it was released when cursor was over secong UnitView.
-         I assume that there are no other gameobjects on table than UnitViews.
-        */
-        if(hits.Length == 2)
+        attackedUnitView = RaycastForUnitCardView(Input.mousePosition);
+        SetArrowVisibility(false);
+        if (attackedUnitView == null)
         {
-          // Raycast doesn't guaratntee any order, so I must check what is attacking and what is attacked.
-          UnitCard uc_0 = hits[0].transform.GetComponent<UnitView>().unitCard;
-          UnitCard uc_1 = hits[1].transform.GetComponent<UnitView>().unitCard;
-
-          // we stored attacking unit reference (it is the one dragged). Now just compare which is what:
-          if(ReferenceEquals(uc_0,attackingUnit))
-          {
-            _gameLogic.UnitAttack(uc_0, uc_1);
-          }
-          else
-          {
-            _gameLogic.UnitAttack(uc_1, uc_0);
-          }
-
+          Debug.Log("No unit attacked");
+          return;
+        }
+        if (ReferenceEquals(attackingUnitView, attackedUnitView) == false)
+        {
+          _gameLogic.UnitAttack(attackedUnitView.unitCard, attackedUnitView.unitCard);
         }
       }
-
-      //Debug.DrawRay(r.origin, r.direction * 100, Color.red);
-      //Debug.DrawLine(rh.point, rh.point + offset, Color.yellow);
     }
   }
 }
