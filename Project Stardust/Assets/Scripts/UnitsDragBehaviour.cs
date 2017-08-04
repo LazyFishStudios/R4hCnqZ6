@@ -33,7 +33,7 @@ namespace StarDust
     GameLogic _gameLogic;
 
     private void Start()
-    {
+    {      
       cam = Camera.main;
       _lineRenderer = GetComponent<LineRenderer>();
       _arrowSpriteRenderer = ArrowHead.GetComponent<SpriteRenderer>();
@@ -108,7 +108,7 @@ namespace StarDust
         }
         if (ReferenceEquals(attackingUnitView, attackedUnitView) == false)
         {
-          _gameLogic.UnitAttack(attackedUnitView.unitCard, attackedUnitView.unitCard);
+          _gameLogic.UnitAttack(attackingUnitView.unitCard, attackedUnitView.unitCard);
         }
       }
     }

@@ -13,7 +13,7 @@ namespace StarDust
     [Inject]
     UnitView.Factory _unitViewFactory;
 
-       private void Start()
+    private void Start()
     {
       _cardsModel.OnNewUnitCreated += _cardsModel_OnNewUnitCreated;
     }
@@ -22,7 +22,7 @@ namespace StarDust
     {
       for (int i = 0; i < _cardsModel.UnitsOwned; i++)
       {
-        float viewXPos = (i+1)/ ((float)_cardsModel.UnitsOwned + 1.0f);
+        float viewXPos = (i + 1) / ((float)_cardsModel.UnitsOwned + 1.0f);
         transform.GetChild(i).position = Camera.main.ViewportToWorldPoint(new Vector3(viewXPos, .3f, 15));
       }
     }
@@ -31,7 +31,7 @@ namespace StarDust
     {
       UnitView uv = _unitViewFactory.Create();
       uv.FillValues(unitCard);
-     
+
       RepositionUnitViews();
     }
   }
