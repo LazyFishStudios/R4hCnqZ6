@@ -38,6 +38,7 @@ namespace StarDust
     {
       cam = Camera.main;
       _lineRenderer = GetComponent<LineRenderer>();
+      _lineRenderer.enabled = false;
       _arrowSpriteRenderer = ArrowHead.GetComponent<SpriteRenderer>();
       _arrowSpriteRenderer.color = _lineRenderer.endColor;
       _arrowSpriteRenderer.enabled = false;
