@@ -32,19 +32,21 @@ namespace StarDust
       Fuel = desc.Fuel;
       Description = desc.Description;
       Prefab = desc.ModelPrefab;
+      Thumbnail = desc.Thumbnail;
     }
 
     public void UpdateFuel(int value)
     {
       Fuel += value;
       Debug.Log("changed fuel for: " + CardName);
+      
       if (OnCardValuesUpdated != null) OnCardValuesUpdated();
     }
 
     public void UpdateDefence(int value)
     {
       Defence += value;
-      Debug.Log("changed defence for: " + CardName);
+      Debug.Log("changed defence for " + CardName+" by "+value);
       if (OnCardValuesUpdated != null) OnCardValuesUpdated();
     }
 

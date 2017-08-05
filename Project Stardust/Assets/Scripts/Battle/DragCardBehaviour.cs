@@ -73,7 +73,7 @@ namespace StarDust
         unitSlot = hit.transform.GetComponent<UnitSlotView>();
         if (unitSlot != null)
         {
-          _cardsModel.ReleaseCardOverUnitSlot(_cardsPanelView.GetCardFromCardView(thisCardView),unitSlot);
+          _cardsModel.ReleaseCardOverUnitSlot(_cardsPanelView.GetCardFromCardView(thisCardView),unitSlot.SlotId);
         }
       }
 

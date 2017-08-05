@@ -39,9 +39,8 @@ namespace StarDust
 
     // Card model events:
     public event Action<Card> OnNewCardOnHand;
-    public event Action<Card> OnCardReleased;
     public event Action<Card> OnCardRemovedFromHand;
-    public event Action<UnitCard,UnitSlotView> OnNewUnitCreated;
+    public event Action<UnitCard, int> OnNewUnitCreated; // This must be changed, because now model knows about VIEW
 
     CardFactory cardFactory;
 
@@ -87,15 +86,15 @@ namespace StarDust
       // UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
       AddCardToHandInternal(_playersDeck.Dequeue());
     }
-    
-    public void ReleaseCardOverUnitSlot(Card unitCard, UnitSlotView usv)
+
+    public void ReleaseCardOverUnitSlot(Card unitCard, int slotId)
     {
       if (unitCard.Type == CardType.UNIT)
       {
         UnitsOwned++;
         RemoveCardFromHand(unitCard);
-        if (OnNewUnitCreated != null) OnNewUnitCreated(unitCard as UnitCard,usv);
-        
+        if (OnNewUnitCreated != null) OnNewUnitCreated(unitCard as UnitCard, slotId);
+
       }
     }
 

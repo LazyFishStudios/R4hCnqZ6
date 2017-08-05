@@ -16,7 +16,7 @@ namespace StarDust
 
     public override void OnCardPlayed()
     {
-      Debug.Log("Heal planet +1");
+     
     }
 
     protected override void SetupDescription(string cardDescriptionName)
@@ -24,6 +24,7 @@ namespace StarDust
       InstantCardDescription desc = LoadCardDescitpion<InstantCardDescription>();
       Cost = desc.Cost;
       Description = desc.Description;
+      Thumbnail = desc.Thumbnail;
     }
   }
 }

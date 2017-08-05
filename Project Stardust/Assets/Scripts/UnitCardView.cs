@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 namespace StarDust
@@ -19,6 +20,9 @@ namespace StarDust
     [SerializeField]
     TextMeshProUGUI fuel;
 
+    [SerializeField]
+    Image thumbnail;
+
     public UnitCard thisUnitCard;
 
     public void UpdateDisplayedValues(UnitCard newUnitCard)
@@ -29,6 +33,7 @@ namespace StarDust
       fuel.text = newUnitCard.Fuel.ToString();
       type = newUnitCard.Type;
       thisUnitCard = newUnitCard;
+      thumbnail.sprite = newUnitCard.Thumbnail;
     }
   }
 }

@@ -17,6 +17,7 @@ namespace StarDust
     public int Cost { get; protected set; }
     public string CardName { get; protected set; } // This name must match card description in Resources.
     public string Description { get; protected set; }
+    public Sprite Thumbnail { get; protected set; }
 
     public CardType Type { get; protected set;} // This is used by UI to find out which card UI to add
     public abstract void OnCardPlayed();
