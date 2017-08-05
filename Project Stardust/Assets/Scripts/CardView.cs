@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CardView : MonoBehaviour 
+namespace StarDust
 {
-	
+  public abstract class CardView : MonoBehaviour
+  {
+    public  CardType type { get; protected set; }
+  }
 }

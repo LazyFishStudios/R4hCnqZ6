@@ -27,6 +27,7 @@ namespace StarDust
       defence.text = newUnitCard.Defence.ToString();
       attack.text = newUnitCard.Attack.ToString();
       fuel.text = newUnitCard.Fuel.ToString();
+      type = newUnitCard.Type;
       thisUnitCard = newUnitCard;
     }
   }

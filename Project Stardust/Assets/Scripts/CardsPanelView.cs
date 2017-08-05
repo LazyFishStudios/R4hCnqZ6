@@ -14,7 +14,7 @@ namespace StarDust
     [Inject]
     CardViewsFactory _cardsViewsFactory;
 
-    List<Slot> cardSlots; 
+    List<Slot> cardSlots;
 
     CardView currentDraggedCardView;
 
@@ -70,7 +70,6 @@ namespace StarDust
       return cardSlots.First(s => s.card == c);
     }
   }
-
   public class Slot
   {
     public Transform slot;

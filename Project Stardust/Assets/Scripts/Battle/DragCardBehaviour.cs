@@ -22,7 +22,10 @@ namespace StarDust
     CardsPanelView _cardsPanelView;
 
     CardView thisCardView;
-    
+
+    [Inject]
+    UnitHolderView _unitHolderView;
+
     void Start()
     {
       rt = GetComponent<RectTransform>();
@@ -33,6 +36,8 @@ namespace StarDust
     public void OnBeginDrag(PointerEventData eventData)
     {
       _cardsPanelView.SetCurrentDraggedCard(thisCardView);
+      if (thisCardView.type == CardType.UNIT)
+        _unitHolderView.SetFreeUnitSlotsVisibility(true);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -48,16 +53,31 @@ namespace StarDust
       Ray cameraRay = mainCamera.ScreenPointToRay(Input.mousePosition);
       RaycastHit hit;
       bool hitSuccess = Physics.Raycast(cameraRay, out hit);
-      
+
+      if (thisCardView.type == CardType.UNIT)
+        _unitHolderView.SetFreeUnitSlotsVisibility(false);
+
       if (hitSuccess)
       {
         UnitView target = null;
-        // Debug.Log(hit.transform.gameObject);
-        target = hit.transform.gameObject.GetComponent<UnitView>();
-        data.Target = target.unitCard;
+        target = hit.transform.GetComponent<UnitView>();
+
+        if (target != null)
+        {
+          data.Target = target.unitCard;
+          _cardsModel.ReleaseCardOverUnit(data);
+        }
+
+
+        UnitSlotView unitSlot = null;
+        unitSlot = hit.transform.GetComponent<UnitSlotView>();
+        if (unitSlot != null)
+        {
+          _cardsModel.ReleaseCardOverUnitSlot(_cardsPanelView.GetCardFromCardView(thisCardView),unitSlot);
+        }
       }
 
-      _cardsModel.ReleaseCardOverUnit(data);
+
 
       ResetCardPosition();
       _cardsPanelView.SetCurrentDraggedCard(null);

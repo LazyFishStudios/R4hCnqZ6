@@ -7,6 +7,7 @@ namespace StarDust
 {
   public enum CardType
   {
+    UNSET,
     UNIT,
     INSTANT
   }

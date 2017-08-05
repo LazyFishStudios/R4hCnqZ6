@@ -16,6 +16,7 @@ namespace StarDust
 
     public int Energy { get; private set; }
     public event Action OnEnergyChanged;
+
     [Inject]
     public void InjectDependencies(GameLogic gameLogic)
     {

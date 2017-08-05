@@ -41,7 +41,7 @@ namespace StarDust
     public event Action<Card> OnNewCardOnHand;
     public event Action<Card> OnCardReleased;
     public event Action<Card> OnCardRemovedFromHand;
-    public event Action<UnitCard> OnNewUnitCreated;
+    public event Action<UnitCard,UnitSlotView> OnNewUnitCreated;
 
     CardFactory cardFactory;
 
@@ -87,7 +87,17 @@ namespace StarDust
       // UnitCard c = cardFactory.CreateCardByName<UnitCard>(CardListNames.BattleCruiser);
       AddCardToHandInternal(_playersDeck.Dequeue());
     }
-
+    
+    public void ReleaseCardOverUnitSlot(Card unitCard, UnitSlotView usv)
+    {
+      if (unitCard.Type == CardType.UNIT)
+      {
+        UnitsOwned++;
+        RemoveCardFromHand(unitCard);
+        if (OnNewUnitCreated != null) OnNewUnitCreated(unitCard as UnitCard,usv);
+        
+      }
+    }
 
 
     /// <summary>
@@ -99,12 +109,7 @@ namespace StarDust
       LastFieldInteraction = data;
       Debug.Log("Card released: " + data.ReleasedCard.CardName);
 
-      if (data.ReleasedCard.Type == CardType.UNIT)
-      {
-        UnitsOwned++;
-        if (OnNewUnitCreated != null) OnNewUnitCreated(data.ReleasedCard as UnitCard);
-        RemoveCardFromHand(data.ReleasedCard);
-      }
+
 
       if (data.Target != null && data.ReleasedCard.Type == CardType.INSTANT)
       {
