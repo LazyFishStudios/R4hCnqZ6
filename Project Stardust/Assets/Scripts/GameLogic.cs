@@ -23,6 +23,12 @@ namespace StarDust
       CurrentRound = 1;
     }
 
+
+    public void StartGame()
+    {
+
+    }
+
     public void StartNextRound()
     {
       CurrentRound++;

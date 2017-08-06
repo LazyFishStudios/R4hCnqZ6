@@ -7,7 +7,7 @@ using Zenject;
 
 namespace StarDust
 {
-  public class CardsModel : IInitializable
+  public class CardsModel
   {
     private int _deckSize = 20;
 
@@ -23,7 +23,7 @@ namespace StarDust
         return _unitsOwned;
       }
 
-      set
+      private set
       {
         _unitsOwned = value;
       }
@@ -43,16 +43,14 @@ namespace StarDust
     public event Action<UnitCard, int> OnNewUnitCreated; // This must be changed, because now model knows about VIEW
 
     CardFactory cardFactory;
-
-    [Inject]
-    DefendingPlayer _playerModel;
-
+      
     public CardsModel(CardFactory cardFactory)
     {
       this.cardFactory = cardFactory;
       _playersDeck = new Queue<Card>();
       _cardsOnField = new List<Card>();
       _cardsOnHand = new List<Card>();
+      Debug.Log("CardsModel ctor()");
     }
 
     public void Initialize()

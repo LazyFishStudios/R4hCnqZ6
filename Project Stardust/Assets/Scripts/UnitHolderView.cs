@@ -10,7 +10,7 @@ namespace StarDust
     [SerializeField]
     GameObject UnitViewBkgPrefab;
 
-    [Inject]
+    [Inject(Id ="d")]
     CardsModel _cardsModel;
 
     [Inject]
@@ -19,6 +19,12 @@ namespace StarDust
     private List<UnitSlotView> unitSlotViews;
     
     public UnitSlotView SelectedSlot;
+
+    private void RegisterEvents()
+    {
+      Debug.Log("Unit holder view RegisterEvents()");
+      _cardsModel.OnNewUnitCreated += _cardsModel_OnNewUnitCreated;
+    }
 
     private void Start()
     {
@@ -35,7 +41,7 @@ namespace StarDust
       }
 
       SetFreeUnitSlotsVisibility(false);
-      _cardsModel.OnNewUnitCreated += _cardsModel_OnNewUnitCreated;
+      RegisterEvents();
     }
 
     private void _cardsModel_OnNewUnitCreated(UnitCard unitCard, int slotId)
