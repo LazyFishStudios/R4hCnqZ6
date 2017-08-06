@@ -14,8 +14,9 @@ namespace StarDust
   public enum CardListNames
   {
     BattleCruiser,
+    Carrier,
     DeathStar,
-    HealPlanet
+    Refuel,
   }
 
 
@@ -61,14 +62,19 @@ namespace StarDust
             nextCard = _container.Instantiate<BattleCruiserCard>();
             break;
           }
+        case (CardListNames.Carrier):
+          {
+            nextCard = _container.Instantiate<CarrierCard>();
+            break;
+          }
         case (CardListNames.DeathStar):
           {
             nextCard = _container.Instantiate<DeathStarCard>();
             break;
           }
-        case (CardListNames.HealPlanet):
+        case (CardListNames.Refuel):
           {
-            nextCard = _container.Instantiate<HealPlanetCard>();
+            nextCard = _container.Instantiate<RefuelCard>();
             break;
           }
       }

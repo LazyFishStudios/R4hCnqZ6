@@ -6,7 +6,7 @@ using Zenject;
 
 namespace StarDust
 {
-  public class HealPlanetCard : InstantCard
+  public class RefuelCard : InstantCard
   {
     [Inject] // This is PROBABLY after ctors()
     DefendingPlayer _playerModel;
@@ -15,7 +15,7 @@ namespace StarDust
     CardsModel _cardsModel;
 
     // parameter passed bo base must match card description ScriptableObject in Resourced 
-    public HealPlanetCard() : base("HealPlanet")
+    public RefuelCard() : base("Refuel")
     {
       // Debug.Log("Heal card ctor()");
     }
@@ -25,7 +25,7 @@ namespace StarDust
       // For example each ship gets +1 to fuel; 
       Card target = _cardsModel.LastFieldInteraction.Target;
       (target as UnitCard).UpdateFuel(1);
-      Debug.Log("Heal card used");
+      Debug.Log("Refuel card used");
     }
   }
 }
