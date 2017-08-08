@@ -23,7 +23,7 @@ namespace StarDust
 
     CardView thisCardView;
 
-    [Inject]
+    [Inject(Id ="Bottom")]
     UnitHolderView _unitHolderView;
 
     void Start()

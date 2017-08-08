@@ -8,7 +8,8 @@ namespace StarDust
 {
   public class CardsPanelView : MonoBehaviour
   {
-    [Inject(Id ="d")]
+    public const string dd = "d";
+    [Inject(Id = dd)]
     CardsModel _cardsModel;
 
     [Inject]

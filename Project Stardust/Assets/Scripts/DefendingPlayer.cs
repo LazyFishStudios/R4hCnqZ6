@@ -7,9 +7,9 @@ namespace StarDust
 {
   public class DefendingPlayer : PlayerModel
   {
-    public DefendingPlayer()
+    public DefendingPlayer(int testParam)
     {
-      Debug.Log("DefendingPlayer ctor()");
+      Debug.Log("DefendingPlayer ctor() "+testParam);
     }
 
     private int _lives = 30;

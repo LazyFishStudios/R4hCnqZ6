@@ -7,6 +7,9 @@ namespace StarDust
 {
   public class UnitHolderView : MonoBehaviour
   {
+
+    [SerializeField]
+    float posY;
     [SerializeField]
     GameObject UnitViewBkgPrefab;
 
@@ -34,7 +37,7 @@ namespace StarDust
       {
         float viewXPos = (i + 1) / ((float)4 + 1.0f);
         UnitSlotView newUnitSlot = Instantiate(UnitViewBkgPrefab).GetComponent<UnitSlotView>();
-        newUnitSlot.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(viewXPos, .3f, 15));
+        newUnitSlot.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(viewXPos, posY, 15));
         newUnitSlot.transform.SetParent(transform);
         newUnitSlot.SlotId = i;
         unitSlotViews.Add(newUnitSlot);
