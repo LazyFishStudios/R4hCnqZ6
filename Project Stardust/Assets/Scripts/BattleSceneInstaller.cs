@@ -11,8 +11,7 @@ namespace StarDust
     {
       Container.Bind<DefendingPlayer>().AsSingle().WithArguments(42);
       Container.Bind<GameLogic>().AsSingle();
-      Container.Bind<CardsPanelView>().FromComponentInHierarchy();
-      Container.Bind<CardsPanelView>().FromComponentInParents().WhenInjectedInto<CardView>();
+      Container.Bind<CardsPanelView>().FromComponentInParents();//.WhenInjectedInto<CardView>();
       //Container.Bind<UnitHolderView>().FromComponentInHierarchy();
       Container.Bind<UnitHolderView>().WithId("Bottom").FromInstance(uhv);
 
