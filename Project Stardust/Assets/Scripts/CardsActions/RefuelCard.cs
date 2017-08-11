@@ -8,11 +8,11 @@ namespace StarDust
 {
   public class RefuelCard : InstantCard
   {
-    [Inject] // This is PROBABLY after ctors()
-    DefendingPlayer _playerModel;
+  //  [Inject] // This is PROBABLY after ctors()
+  //  PlayerModel _playerModel;
 
-    [Inject]
-    CardsModel _cardsModel;
+ //   [Inject]
+  //  CardsModel _cardsModel;
 
     // parameter passed bo base must match card description ScriptableObject in Resourced 
     public RefuelCard() : base("Refuel")
@@ -23,8 +23,8 @@ namespace StarDust
     public override void OnCardPlayed()
     {
       // For example each ship gets +1 to fuel; 
-      Card target = _cardsModel.LastFieldInteraction.Target;
-      (target as UnitCard).UpdateFuel(1);
+    //  Card target = _cardsModel.LastFieldInteraction.Target;
+    //  (target as UnitCard).UpdateFuel(1);
       Debug.Log("Refuel card used");
     }
   }

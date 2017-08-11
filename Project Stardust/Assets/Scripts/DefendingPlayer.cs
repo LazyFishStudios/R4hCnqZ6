@@ -5,11 +5,11 @@ using Zenject;
 
 namespace StarDust
 {
-  public class DefendingPlayer : PlayerModel
+  public class DefendingPlayerModel : PlayerModel
   {
-    public DefendingPlayer(int testParam)
+    public DefendingPlayerModel()
     {
-      Debug.Log("DefendingPlayer ctor() "+testParam);
+      Debug.Log("DefendingPlayer ctor() ");
     }
 
     private int _lives = 30;

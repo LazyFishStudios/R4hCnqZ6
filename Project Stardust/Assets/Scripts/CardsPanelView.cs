@@ -8,8 +8,7 @@ namespace StarDust
 {
   public class CardsPanelView : MonoBehaviour
   {
-    public const string dd = "d";
-    [Inject(Id = dd)]
+    [Inject]
     CardsModel _cardsModel;
 
     [Inject]
@@ -19,7 +18,7 @@ namespace StarDust
 
     CardView currentDraggedCardView;
 
-    void Awake()
+    void Start()
     {
       cardSlots = new List<Slot>();
       foreach (Transform t in transform)

@@ -7,12 +7,7 @@ namespace StarDust
 {
   public class EntryPoint : MonoBehaviour
   {
-    [Inject]
-    DefendingPlayer _defendingPlayer;
-
-    void Start()
-    {
-
-    }
+    
+     
   }
 }

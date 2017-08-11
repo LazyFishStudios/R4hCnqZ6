@@ -7,24 +7,29 @@ namespace StarDust
 {
   public class TestCardAdding : MonoBehaviour
   {
-    [Inject(Id = "d")]
-    CardsModel cm;
+    // This won't work, because there is no cardModel Context
+    //CardsModel cm;
 
     [Inject]
     GameLogic gl;
 
     [Inject]
-    DefendingPlayer dp;
+    AttackingPlayerModel apm;
+
+    [Inject]
+    DefendingPlayerModel dpm;
     
     public void OnButtonPressed()
     {
-      cm.AddTopCardFromDeckToHand();
+      apm.GetCardsModel.AddTopCardFromDeckToHand();
+      dpm.GetCardsModel.AddTopCardFromDeckToHand();
       gl.StartNextRound();
     }
 
     public void StartGame()
     {
-      cm.Initialize();
+      apm.GetCardsModel.Initialize();
+      dpm.GetCardsModel.Initialize();
     }
   }
 }

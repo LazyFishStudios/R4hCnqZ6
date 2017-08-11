@@ -20,7 +20,7 @@ namespace StarDust
     public CardsModel GetCardsModel
     {
       get {
-        Debug.Log("Card model request");
+        //Debug.Log("Card model request");
         return _cardsModel;
       }
     }

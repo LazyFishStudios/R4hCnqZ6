@@ -11,8 +11,8 @@ namespace StarDust
     public int Defence { get; private set; }
     public GameObject Prefab { get; private set; }
 
-    [Inject]
-    CardsModel _cardsModel;
+  //  [Inject]
+  //  CardsModel _cardsModel;
 
     public UnitCard(string cardName)
     {

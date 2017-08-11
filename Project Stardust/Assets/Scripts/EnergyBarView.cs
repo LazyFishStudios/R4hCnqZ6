@@ -10,7 +10,7 @@ namespace StarDust
   public class EnergyBarView : MonoBehaviour
   {
     [Inject]
-    DefendingPlayer defendingPlayer;
+    PlayerModel defendingPlayer;
 
     public Color filledColor;
     public Color emptyColor;

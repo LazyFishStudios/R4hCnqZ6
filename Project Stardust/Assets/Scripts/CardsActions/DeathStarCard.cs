@@ -8,11 +8,11 @@ namespace StarDust
 {
   public class DeathStarCard : UnitCard
   {
-    [Inject] // This is PROBABLY after ctors()
-    DefendingPlayer _playerModel;
+    //[Inject] // This is PROBABLY after ctors()
+  //  PlayerModel _playerModel;
 
-    [Inject]
-    CardsModel _cardsModel;
+  //  [Inject]
+   // CardsModel _cardsModel;
 
     // parameter passed bo base must match card description ScriptableObject in Resourced 
     public DeathStarCard() : base("DeathStar")
@@ -29,7 +29,7 @@ namespace StarDust
     {
       base.OnUnitAttacked();
       // Some test attack action: "Whenever DeathStar attacks, player gains +2 energy"
-      _playerModel.AddEnergy(2);
+    //  _playerModel.AddEnergy(2);
     }
   }
 }

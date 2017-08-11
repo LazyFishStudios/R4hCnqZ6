@@ -13,7 +13,7 @@ namespace StarDust
     [SerializeField]
     GameObject UnitViewBkgPrefab;
 
-    [Inject(Id ="d")]
+    [Inject]
     CardsModel _cardsModel;
 
     [Inject]
