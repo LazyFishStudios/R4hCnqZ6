@@ -7,6 +7,10 @@ using Zenject;
 
 namespace StarDust
 {
+  /// <summary>
+  /// Added to ugui card representation.
+  /// Added to card views prefabs. UnitCardView and InstantCardView.
+  /// </summary>
   public class DragCardBehaviour : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
   {
     [Inject]
@@ -15,8 +19,8 @@ namespace StarDust
     RectTransform rt;
     Camera mainCamera;
 
-    [Inject]
-    CardsModel _cardsModel;
+  //  [Inject]
+  //  CardsModel _cardsModel;
 
     [Inject]
     CardsPanelView _cardsPanelView;
@@ -65,7 +69,7 @@ namespace StarDust
         if (target != null)
         {
           data.Target = target.unitCard;
-          _cardsModel.ReleaseCardOverUnit(data);
+        //  _cardsModel.ReleaseCardOverUnit(data);
         }
 
 
@@ -73,7 +77,7 @@ namespace StarDust
         unitSlot = hit.transform.GetComponent<UnitSlotView>();
         if (unitSlot != null)
         {
-          _cardsModel.ReleaseCardOverUnitSlot(_cardsPanelView.GetCardFromCardView(thisCardView),unitSlot.SlotId);
+       //   _cardsModel.ReleaseCardOverUnitSlot(_cardsPanelView.GetCardFromCardView(thisCardView),unitSlot.SlotId);
         }
       }
 

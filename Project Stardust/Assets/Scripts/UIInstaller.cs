@@ -8,7 +8,7 @@ public class UIInstaller : MonoInstaller<UIInstaller>
 
   public override void InstallBindings()
   {
-    Debug.Log("UIInstaller bindings "+gameObject.name);
+    Debug.Log("UIInstaller bindings " + gameObject.name);
     if (PlayerType == PlayerTypes.ATTACKING)
     {
       Container.Bind<PlayerModel>().To<AttackingPlayerModel>().FromResolve();

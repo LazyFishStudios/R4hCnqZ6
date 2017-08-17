@@ -18,11 +18,7 @@ namespace StarDust
       Container.Bind<CardFactoryController>().AsSingle();
 
       //=== Card view bindings:
-
-      // Ok, this works with [Inject]. I wonder if this is used when injected from factory???
-      // First I will test this: _container.InstantiatePrefabResource in factory <== this is working!!
-      // Container.Bind<UnitCardView>().FromComponentInNewPrefabResource("CardViews/UnitCardView").UnderTransformGroup("Canvas").AsTransient();
-      // Container.Bind<InstantCardView>().FromComponentInNewPrefabResource("CardViews/InstantCardView").UnderTransformGroup("Canvas").AsTransient();
+           
       Container.BindFactory<CardView, BaseCardViewFactory>().FromFactory<CardViewFactoryInternal>();
       Container.Bind<CardViewsFactory>().AsSingle();
       Container.Bind<CardViewsFactoryController>().AsSingle();
