@@ -14,14 +14,17 @@ public class SelectPlanet : MonoBehaviour
   InputHandler _inputHandler;
   Vector3 _cameraStartPosition;
   Vector3 _cameraEndPosition;
+  Quaternion _cameraStartRotation;
+  Quaternion _cameraEndRotation;
   float _swipeProgress;
+
   SwipeState _state;
 
   [SerializeField]
   Transform[] _lookAtplanetPositions;
 
   int _selectedPlanetIndex = 0;
-  public float Speed;
+  public float swipDuration = 1;
   [SerializeField]
   AnimationCurve _cameraSpeed;
   
@@ -67,9 +70,11 @@ public class SelectPlanet : MonoBehaviour
     if (_state == SwipeState.SWIPE_IN_PROGRESS) return;
     if (_selectedPlanetIndex == _lookAtplanetPositions.Length - 1) return;
     _cameraStartPosition = _lookAtplanetPositions[_selectedPlanetIndex].position;
+    _cameraStartRotation = _lookAtplanetPositions[_selectedPlanetIndex].rotation;
     _selectedPlanetIndex++;
 
     _cameraEndPosition = _lookAtplanetPositions[_selectedPlanetIndex].position;
+    _cameraEndRotation = _lookAtplanetPositions[_selectedPlanetIndex].rotation;
     _swipeProgress = 0;
     _state = SwipeState.SWIPE_IN_PROGRESS;
   }
@@ -80,19 +85,23 @@ public class SelectPlanet : MonoBehaviour
     if (_state == SwipeState.SWIPE_IN_PROGRESS) return;
     if (_selectedPlanetIndex == 0) return;
     _cameraStartPosition = _lookAtplanetPositions[_selectedPlanetIndex].position;
+    _cameraStartRotation = _lookAtplanetPositions[_selectedPlanetIndex].rotation;
     _selectedPlanetIndex--;
     _cameraEndPosition = _lookAtplanetPositions[_selectedPlanetIndex].position;
+    _cameraEndRotation = _lookAtplanetPositions[_selectedPlanetIndex].rotation;
     _swipeProgress = 0;
     _state = SwipeState.SWIPE_IN_PROGRESS;
   }
 
   private void UpdateCameraPosition()
   {
-    _swipeProgress += Time.deltaTime * Speed;
-    Vector3 newCamPos = Vector3.Lerp(_cameraStartPosition, _cameraEndPosition, _cameraSpeed.Evaluate(_swipeProgress));
-    _mainCamera.transform.position = newCamPos;
-  //  Debug.Log("progress: " + _swipeProgress + " start: " + _cameraStartPosition + " end: " + _cameraEndPosition + " campos: " + newCamPos);
-    if (_swipeProgress >= 1f)
+    _swipeProgress += Time.deltaTime / swipDuration;
+    
+    _mainCamera.transform.position = Vector3.Lerp(_cameraStartPosition, _cameraEndPosition, _cameraSpeed.Evaluate(_swipeProgress));
+    _mainCamera.transform.rotation = Quaternion.Lerp(_cameraStartRotation, _cameraEndRotation, _cameraSpeed.Evaluate(_swipeProgress));
+     //  Debug.Log("progress: " + _swipeProgress + " start: " + _cameraStartPosition + " end: " + _cameraEndPosition + " campos: " + newCamPos);
+     
+   if (_swipeProgress >= 1f)
     {
       _state = SwipeState.WAITING_FOR_SWIPE;
       _vlg.childAlignment = (_selectedPlanetIndex % 2 != 0) ? TextAnchor.MiddleLeft : TextAnchor.MiddleRight;
